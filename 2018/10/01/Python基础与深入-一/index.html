@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=6.7.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.7.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.7.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.7.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="1.Python语言特性 Python是一种解释型语言。这就是说，与C语言和C的衍生语言不同，Python代码在运行之前不需要编译。 Python是动态类型语言，指的是你在声明变量时，不需要说明变量的类型。 Python非常适合面向对象的编程（OOP），因为它支持通过组合（composition）与继承（inheritance）的方式定义类（class）。 Python中没有访问说明符（acces">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python基础与深入(一)">
+<meta property="og:url" content="http://yoursite.com/2018/10/01/Python基础与深入-一/index.html">
+<meta property="og:site_name" content="Jeese&#39;s Blog">
+<meta property="og:description" content="1.Python语言特性 Python是一种解释型语言。这就是说，与C语言和C的衍生语言不同，Python代码在运行之前不需要编译。 Python是动态类型语言，指的是你在声明变量时，不需要说明变量的类型。 Python非常适合面向对象的编程（OOP），因为它支持通过组合（composition）与继承（inheritance）的方式定义类（class）。 Python中没有访问说明符（acces">
+<meta property="og:locale" content="zh-hans">
+<meta property="og:updated_time" content="2019-03-25T11:21:20.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python基础与深入(一)">
+<meta name="twitter:description" content="1.Python语言特性 Python是一种解释型语言。这就是说，与C语言和C的衍生语言不同，Python代码在运行之前不需要编译。 Python是动态类型语言，指的是你在声明变量时，不需要说明变量的类型。 Python非常适合面向对象的编程（OOP），因为它支持通过组合（composition）与继承（inheritance）的方式定义类（class）。 Python中没有访问说明符（acces">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/10/01/Python基础与深入-一/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Python基础与深入(一) | Jeese's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/zhwl934008411" class="github-corner" aria-label="View source on GitHub">
+    <svg width="80" height="80" viewbox="0 0 250 250" style="fill:#64CEAA; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/>
+    <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/>
+    <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Jeese's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/01/Python基础与深入-一/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeese zhao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jeese's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Python基础与深入(一)
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-10-01 00:00:00" itemprop="dateCreated datePublished" datetime="2018-10-01T00:00:00+08:00">2018-10-01</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-03-25 19:21:20" itemprop="dateModified" datetime="2019-03-25T19:21:20+08:00">2019-03-25</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="1-Python语言特性"><a href="#1-Python语言特性" class="headerlink" title="1.Python语言特性"></a>1.Python语言特性</h3><ul>
+<li>Python是一种解释型语言。这就是说，与C语言和C的衍生语言不同，Python代码在运行之前不需要编译。</li>
+<li>Python是动态类型语言，指的是你在声明变量时，不需要说明变量的类型。</li>
+<li>Python非常适合面向对象的编程（OOP），因为它支持通过组合（composition）与继承（inheritance）的方式定义类（class）。</li>
+<li>Python中没有访问说明符（access specifier，类似C++中的public和private），这么设计的依据是“大家都是成年人了”。</li>
+</ul>
+<p>在Python语言中，函数是第一类对象（first-class objects）。这指的是它们可以被指定给变量，函数既能返回函数类型，也可以接受函数作为输入。类（class）也是第一类对象。<br>Python代码编写快，但是运行速度比编译语言通常要慢。好在Python允许加入基于C语言编写的扩展，因此我们能够优化代码，消除瓶颈，这点通常是可以实现的。numpy就是一个很好地例子，它的运行速度真的非常快，因为很多算术运算其实并不是通过Python实现的。</p>
+<p>Python用途非常广泛——网络应用，自动化，科学建模，大数据应用，等等。它也常被用作“胶水语言”，帮助其他语言和组件改善运行状况。<br>Python让困难的事情变得容易，因此程序员可以专注于算法和数据结构的设计，而不用处理底层的细节。</p>
+<h3 id="2-Python的命名空间"><a href="#2-Python的命名空间" class="headerlink" title="2.Python的命名空间"></a>2.Python的命名空间</h3><p>在Python中，所有的名字都存在于一个空间中，它们在该空间中存在和被操作——这就是命名空间。</p>
+<p>它就好像一个盒子，每一个变量名字都对应装着一个对象。当查询变量的时候，会从该盒子里面寻找相应的对象。</p>
+<h3 id="3-Python异常处理的用法和作用"><a href="#3-Python异常处理的用法和作用" class="headerlink" title="3.Python异常处理的用法和作用"></a>3.Python异常处理的用法和作用</h3><p>  [参考廖雪峰](<a href="https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000/00143191375461417a222c54b7e4d65b258f491c093a515000]" target="_blank" rel="noopener">https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000/00143191375461417a222c54b7e4d65b258f491c093a515000]</a></p>
+<h4 id="Python异常处理结构try…except…except…-else…-finally…"><a href="#Python异常处理结构try…except…except…-else…-finally…" class="headerlink" title="Python异常处理结构try…except…except…[else…][finally…)"></a>Python异常处理结构try…except…except…[else…][finally…)</h4><ul>
+<li><p>执行try下的语句，如果引发异常，则执行过程会跳到except语句。对每个except分支顺序尝试执行，如果引发的异常与except中的异常组匹配，执行相应的语句。</p>
+</li>
+<li><p>如果所有的except都不匹配，则异常会传递到下一个调用本代码的最高层try代码中。</p>
+</li>
+<li><p>try下的语句正常执行，则执行else块代码。如果发生异常，就不会执行</p>
+</li>
+<li><p>如果存在finally语句，最后总是会执行。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    print(<span class="string">'try...'</span>)</span><br><span class="line">    r = <span class="number">10</span> / int(<span class="string">'2'</span>)</span><br><span class="line">    print(<span class="string">'result:'</span>, r)</span><br><span class="line"><span class="keyword">except</span> ValueError <span class="keyword">as</span> e:</span><br><span class="line">    print(<span class="string">'ValueError:'</span>, e)</span><br><span class="line"><span class="keyword">except</span> ZeroDivisionError <span class="keyword">as</span> e:</span><br><span class="line">    print(<span class="string">'ZeroDivisionError:'</span>, e)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    print(<span class="string">'no error!'</span>)</span><br><span class="line"><span class="keyword">finally</span>:</span><br><span class="line">    print(<span class="string">'finally...'</span>)</span><br><span class="line">print(<span class="string">'END'</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="4-Python的函数参数传递"><a href="#4-Python的函数参数传递" class="headerlink" title="4.Python的函数参数传递"></a>4.Python的函数参数传递</h3><p>看两个例子:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">1</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fun</span><span class="params">(a)</span>:</span></span><br><span class="line">    a = <span class="number">2</span></span><br><span class="line">fun(a)</span><br><span class="line"><span class="keyword">print</span> a  <span class="comment"># 1</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a = []</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fun</span><span class="params">(a)</span>:</span></span><br><span class="line">    a.append(<span class="number">1</span>)</span><br><span class="line">fun(a)</span><br><span class="line"><span class="keyword">print</span> a  <span class="comment"># [1]</span></span><br></pre></td></tr></table></figure>
+<p>所有的变量都可以理解是内存中一个对象的“引用”</p>
+<p>通过<code>id</code>来看引用<code>a</code>的内存地址可以比较理解：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">1</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fun</span><span class="params">(a)</span>:</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">"func_in"</span>,id(a)   <span class="comment"># func_in 41322472</span></span><br><span class="line">    a = <span class="number">2</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">"re-point"</span>,id(a), id(<span class="number">2</span>)   <span class="comment"># re-point 41322448 41322448</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"func_out"</span>,id(a), id(<span class="number">1</span>)  <span class="comment"># func_out 41322472 41322472</span></span><br><span class="line">fun(a)</span><br><span class="line"><span class="keyword">print</span> a  <span class="comment"># 1</span></span><br></pre></td></tr></table></figure>
+<p>注：具体的值在不同电脑上运行时可能不同。</p>
+<p>可以看到，在执行完<code>a = 2</code>之后，<code>a</code>引用中保存的值，即内存地址发生变化，由原来<code>1</code>对象的所在的地址变成了<code>2</code>这个实体对象的内存地址。</p>
+<p>而第2个例子<code>a</code>引用保存的内存值就不会发生变化：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a = []</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fun</span><span class="params">(a)</span>:</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">"func_in"</span>,id(a)  <span class="comment"># func_in 53629256</span></span><br><span class="line">    a.append(<span class="number">1</span>)</span><br><span class="line"><span class="keyword">print</span> <span class="string">"func_out"</span>,id(a)     <span class="comment"># func_out 53629256</span></span><br><span class="line">fun(a)</span><br><span class="line"><span class="keyword">print</span> a  <span class="comment"># [1]</span></span><br></pre></td></tr></table></figure>
+<p>这里记住的是类型是属于对象的，而不是变量。而对象有两种,“可变”（mutable）与“不可变”（immutable）对象。在python中，string, tuple, 和number是不可更改的对象，而 list, dict, set 等则是可以修改的对象。(这就是这个问题的重点)</p>
+<p>当一个引用传递给函数的时候,函数自动复制一份引用,这个函数里的引用和外边的引用没有半毛关系了.所以第一个例子里函数把引用指向了一个不可变对象,当函数返回的时候,外面的引用没半毛感觉.而第二个例子就不一样了,函数内的引用指向的是可变对象,对它的操作就和定位了指针地址一样,在内存里进行修改.</p>
+<p>如果还不明白的话,这里有更好的解释: <a href="http://stackoverflow.com/questions/986006/how-do-i-pass-a-variable-by-reference" target="_blank" rel="noopener">http://stackoverflow.com/questions/986006/how-do-i-pass-a-variable-by-reference</a></p>
+<h3 id="5-Python的List和Dict的实现原理"><a href="#5-Python的List和Dict的实现原理" class="headerlink" title="5.Python的List和Dict的实现原理"></a>5.Python的List和Dict的实现原理</h3><p>推荐:<br><a href="http://www.jianshu.com/p/J4U6rR" target="_blank" rel="noopener">列表</a><br><a href="https://blog.csdn.net/shouting3901/article/details/80468735" target="_blank" rel="noopener">字典</a></p>
+<ul>
+<li>字典按照键值对的形式进行存储，时间复杂度为O(1)</li>
+<li>字典的底层是通过哈希表实现的，使用开放地址法解决冲突。所以其查找的时间复杂度会是O(1)，哈希函数求哈希值(哈希函数就是一个多对一的映射)</li>
+</ul>
+<h3 id="6-函数的参数用法和注意事项"><a href="#6-函数的参数用法和注意事项" class="headerlink" title="6.函数的参数用法和注意事项"></a>6.函数的参数用法和注意事项</h3><p>(参考廖雪峰课程)[<a href="https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000/001431752945034eb82ac80a3e64b9bb4929b16eeed1eb9000]" target="_blank" rel="noopener">https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000/001431752945034eb82ac80a3e64b9bb4929b16eeed1eb9000]</a><br>函数参数分为位置参数、默认参数、可变参数、关键字参数、命名关键字参数（定义和调用必须按顺序传入）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">numbers=[1,2,3,4,5]</span><br><span class="line">def sum(*args):</span><br><span class="line">    sum=0</span><br><span class="line">    for i in args:</span><br><span class="line">        sum = sum+i*i</span><br><span class="line">    return sum</span><br><span class="line">sum(*numbers)</span><br><span class="line"></span><br><span class="line">dict1=&#123;&apos;a&apos;:1,&apos;b&apos;:2&#125;</span><br><span class="line">def f(**kwargs):</span><br><span class="line">    for k,v in kwargs.items():</span><br><span class="line">        print(&apos;&#123;0&#125;:&#123;1&#125;&apos;.format(k,v))</span><br><span class="line">f(**dict1)</span><br><span class="line"></span><br><span class="line"># 如果需要约束传入的关键字参数的名称，可以用命名关键字参数</span><br><span class="line"># 命名关键字参数必须传入参数名，这和位置参数不同。</span><br><span class="line">def person(name, age, *, city, job):</span><br><span class="line">    print(name, age, city, job)</span><br><span class="line"></span><br><span class="line">def person(name, age, *args, city, job):</span><br><span class="line">    print(name, age, args, city, job)</span><br><span class="line"></span><br><span class="line"># 命名关键字参数可以有缺省值，从而简化调用：</span><br><span class="line">def person(name, age, *, city=&apos;Beijing&apos;, job):</span><br><span class="line">    print(name, age, city, job)</span><br></pre></td></tr></table></figure></p>
+<h3 id="7-可变对象和不可变对象"><a href="#7-可变对象和不可变对象" class="headerlink" title="7.可变对象和不可变对象"></a>7.可变对象和不可变对象</h3><ul>
+<li>python所有数字类型(布尔树,整数,浮点数,复数)均为不可变对象,</li>
+<li>可变对象:file,dict,set,list,bytesarray,range</li>
+<li>不可变对象:boolean,int,float,complex,tuple,str,bytes,frozenset</li>
+<li>有序sequence:str,list,tuple,OrderedDict,</li>
+<li>无序:dict,set,</li>
+<li>不可重复:set,tuple</li>
+<li>可变对象(mutable object)has no hash value</li>
+<li>不可变对象可哈希,hashable</li>
+</ul>
+<h3 id="8-def是运行时执行语句-并且是赋值语句"><a href="#8-def是运行时执行语句-并且是赋值语句" class="headerlink" title="8.def是运行时执行语句,并且是赋值语句"></a>8.def是运行时执行语句,并且是赋值语句</h3><p>类和对象均为第一类对象，调用的时候才会运行</p>
+<h3 id="9-Python是否能以可变对象做函数默认参数"><a href="#9-Python是否能以可变对象做函数默认参数" class="headerlink" title="9.Python是否能以可变对象做函数默认参数"></a>9.Python是否能以可变对象做函数默认参数</h3><p>不可以,字典,集合,列表等可变对象不适合作为函数默认值<br>要不然第二次调用时,一次调用的默认参数的值会影响二次调用.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">def f(l=[]):</span><br><span class="line">    for i in range(3):</span><br><span class="line">        l.append(i)</span><br><span class="line">    return l</span><br><span class="line">f(l=[2]),---- l=[2,0,1,2]</span><br><span class="line">f(),     ---- l=[0,1,2]</span><br><span class="line">f(),     ---- l=[0,1,2,0,1,2]</span><br></pre></td></tr></table></figure></p>
+<h3 id="10-staticmethod和-classmethod"><a href="#10-staticmethod和-classmethod" class="headerlink" title="10.@staticmethod和@classmethod"></a>10.@staticmethod和@classmethod</h3><p>Python其实有3个方法,即静态方法(staticmethod),类方法(classmethod)和实例方法,如下:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">(x)</span>:</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">"executing foo(%s)"</span>%(x)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">(self,x)</span>:</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">"executing foo(%s,%s)"</span>%(self,x)</span><br><span class="line"></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">class_foo</span><span class="params">(cls,x)</span>:</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">"executing class_foo(%s,%s)"</span>%(cls,x)</span><br><span class="line"></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">static_foo</span><span class="params">(x)</span>:</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">"executing static_foo(%s)"</span>%x</span><br><span class="line"></span><br><span class="line">a=A()</span><br></pre></td></tr></table></figure>
+<p>这里先理解下函数参数里面的self和cls.这个self和cls是对类或者实例的绑定,对于一般的函数来说我们可以这么调用<code>foo(x)</code>,这个函数就是最常用的,它的工作跟任何东西(类,实例)无关.对于实例方法,我们知道在类里每次定义方法的时候都需要绑定这个实例,就是<code>foo(self, x)</code>,为什么要这么做呢?因为实例方法的调用离不开实例,我们需要把实例自己传给函数,调用的时候是这样的<code>a.foo(x)</code>(其实是<code>foo(a, x)</code>).类方法一样,只不过它传递的是类而不是实例,<code>A.class_foo(x)</code>.注意这里的self和cls可以替换别的参数,但是python的约定是这俩,还是不要改的好.</p>
+<p>对于静态方法其实和普通的方法一样,不需要对谁进行绑定,唯一的区别是调用的时候需要使用<code>a.static_foo(x)</code>或者<code>A.static_foo(x)</code>来调用.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">\</th>
+<th style="text-align:left">实例方法</th>
+<th style="text-align:left">类方法</th>
+<th style="text-align:left">静态方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">a = A()</td>
+<td style="text-align:left">a.foo(x)</td>
+<td style="text-align:left">a.class_foo(x)</td>
+<td style="text-align:left">a.static_foo(x)</td>
+</tr>
+<tr>
+<td style="text-align:left">A</td>
+<td style="text-align:left">不可用</td>
+<td style="text-align:left">A.class_foo(x)</td>
+<td style="text-align:left">A.static_foo(x)</td>
+</tr>
+</tbody>
+</table>
+<p>更多关于这个问题:</p>
+<ol>
+<li><a href="http://stackoverflow.com/questions/136097/what-is-the-difference-between-staticmethod-and-classmethod-in-python" target="_blank" rel="noopener">http://stackoverflow.com/questions/136097/what-is-the-difference-between-staticmethod-and-classmethod-in-python</a></li>
+<li><a href="https://realpython.com/blog/python/instance-class-and-static-methods-demystified/" target="_blank" rel="noopener">https://realpython.com/blog/python/instance-class-and-static-methods-demystified/</a></li>
+</ol>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/03/Python基础与深入-二/" rel="prev" title="Python基础与深入(二)">
+                Python基础与深入(二) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Jeese zhao</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/zhwl934008411" title="GitHub &rarr; https://github.com/zhwl934008411" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:zhwl934008411@gmail.com" title="E-Mail &rarr; mailto:zhwl934008411@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Python语言特性"><span class="nav-number">1.</span> <span class="nav-text">1.Python语言特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Python的命名空间"><span class="nav-number">2.</span> <span class="nav-text">2.Python的命名空间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Python异常处理的用法和作用"><span class="nav-number">3.</span> <span class="nav-text">3.Python异常处理的用法和作用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Python异常处理结构try…except…except…-else…-finally…"><span class="nav-number">3.1.</span> <span class="nav-text">Python异常处理结构try…except…except…[else…][finally…)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Python的函数参数传递"><span class="nav-number">4.</span> <span class="nav-text">4.Python的函数参数传递</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-Python的List和Dict的实现原理"><span class="nav-number">5.</span> <span class="nav-text">5.Python的List和Dict的实现原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-函数的参数用法和注意事项"><span class="nav-number">6.</span> <span class="nav-text">6.函数的参数用法和注意事项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-可变对象和不可变对象"><span class="nav-number">7.</span> <span class="nav-text">7.可变对象和不可变对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-def是运行时执行语句-并且是赋值语句"><span class="nav-number">8.</span> <span class="nav-text">8.def是运行时执行语句,并且是赋值语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-Python是否能以可变对象做函数默认参数"><span class="nav-number">9.</span> <span class="nav-text">9.Python是否能以可变对象做函数默认参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-staticmethod和-classmethod"><span class="nav-number">10.</span> <span class="nav-text">10.@staticmethod和@classmethod</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jeese zhao</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">
+  <i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+    本站访客数:<span id="busuanzi_value_site_uv"></span>
+  </span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v6.7.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.7.0"></script>
+
+  <script src="/js/src/motion.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=6.7.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=6.7.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

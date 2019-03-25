@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=6.7.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.7.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.7.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.7.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="1 使用property创建可管理的对象属性property可以让实例在形式上是属性访问,但实际上调用方法12345678910111213141516171819202122class Circle2(object):    def __init__(self, radius):        self.radius = radius    def getRadius(self):">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python基础与深入(二)">
+<meta property="og:url" content="http://yoursite.com/2018/10/03/Python基础与深入-二/index.html">
+<meta property="og:site_name" content="Jeese&#39;s Blog">
+<meta property="og:description" content="1 使用property创建可管理的对象属性property可以让实例在形式上是属性访问,但实际上调用方法12345678910111213141516171819202122class Circle2(object):    def __init__(self, radius):        self.radius = radius    def getRadius(self):">
+<meta property="og:locale" content="zh-hans">
+<meta property="og:updated_time" content="2019-03-25T11:22:02.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python基础与深入(二)">
+<meta name="twitter:description" content="1 使用property创建可管理的对象属性property可以让实例在形式上是属性访问,但实际上调用方法12345678910111213141516171819202122class Circle2(object):    def __init__(self, radius):        self.radius = radius    def getRadius(self):">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/10/03/Python基础与深入-二/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Python基础与深入(二) | Jeese's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/zhwl934008411" class="github-corner" aria-label="View source on GitHub">
+    <svg width="80" height="80" viewbox="0 0 250 250" style="fill:#64CEAA; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/>
+    <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/>
+    <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Jeese's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/03/Python基础与深入-二/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeese zhao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jeese's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Python基础与深入(二)
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-10-03 00:00:00" itemprop="dateCreated datePublished" datetime="2018-10-03T00:00:00+08:00">2018-10-03</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-03-25 19:22:02" itemprop="dateModified" datetime="2019-03-25T19:22:02+08:00">2019-03-25</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="1-使用property创建可管理的对象属性"><a href="#1-使用property创建可管理的对象属性" class="headerlink" title="1 使用property创建可管理的对象属性"></a>1 使用property创建可管理的对象属性</h3><p>property可以让实例在形式上是属性访问,但实际上调用方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">class Circle2(object):</span><br><span class="line">    def __init__(self, radius):</span><br><span class="line">        self.radius = radius</span><br><span class="line"></span><br><span class="line">    def getRadius(self):</span><br><span class="line">        # return self.radius</span><br><span class="line">        return round(self.radius, 2)  # 表示四舍五入后保留小数点后两位</span><br><span class="line"></span><br><span class="line">    def setRadius(self, value):</span><br><span class="line">        if not isinstance(value, (int, long, float)):</span><br><span class="line">            raise valueError(&apos;wrong type .&apos;)</span><br><span class="line">        self.radius = float(value)</span><br><span class="line"></span><br><span class="line">    def getArea(self):</span><br><span class="line">        return self.radius * 2 * pi</span><br><span class="line"></span><br><span class="line">    R = property(getRadius, setRadius)</span><br><span class="line"></span><br><span class="line">r = Circle2(3.2)</span><br><span class="line">print(r.R)  # 自动调用getRadius</span><br><span class="line">r.R = 5.4  # 自动调用setRadius</span><br><span class="line">print(r.R)  # 自动调用getRadius</span><br></pre></td></tr></table></figure></p>
+<h3 id="2-类属性和实例属性"><a href="#2-类属性和实例属性" class="headerlink" title="2.类属性和实例属性"></a>2.类属性和实例属性</h3><p><strong>类属性：</strong></p>
+<blockquote>
+<p>是可在类的所有实例之间共享的值（也就是说，它们不是单独分配给每个实例的）。例如下例中，num_of_instance 就是类属性，用于跟踪存在着多少个Test 的实例。</p>
+</blockquote>
+<p><strong>实例属性：</strong></p>
+<blockquote>
+<p>实例化之后，每个实例单独拥有的变量。</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span><span class="params">(object)</span>:</span></span><br><span class="line">    num_of_instance = <span class="number">0</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name)</span>:</span></span><br><span class="line">        self.name = name</span><br><span class="line">        Test.num_of_instance += <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="keyword">print</span> Test.num_of_instance   <span class="comment"># 0</span></span><br><span class="line">    t1 = Test(<span class="string">'jack'</span>)</span><br><span class="line">    <span class="keyword">print</span> Test.num_of_instance   <span class="comment"># 1</span></span><br><span class="line">    t2 = Test(<span class="string">'lucy'</span>)</span><br><span class="line">    <span class="keyword">print</span> t1.name , t1.num_of_instance  <span class="comment"># jack 2</span></span><br><span class="line">    <span class="keyword">print</span> t2.name , t2.num_of_instance  <span class="comment"># lucy 2</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>补充的例子</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span>:</span></span><br><span class="line">    name=<span class="string">"aaa"</span></span><br><span class="line"></span><br><span class="line">p1=Person()</span><br><span class="line">p2=Person()</span><br><span class="line">p1.name=<span class="string">"bbb"</span></span><br><span class="line"><span class="keyword">print</span> p1.name  <span class="comment"># bbb</span></span><br><span class="line"><span class="keyword">print</span> p2.name  <span class="comment"># aaa</span></span><br><span class="line"><span class="keyword">print</span> Person.name  <span class="comment"># aaa</span></span><br></pre></td></tr></table></figure>
+<p>这里<code>p1.name=&quot;bbb&quot;</code>是实例调用了类属性,这其实和上面第一个问题一样,就是函数传参的问题,<code>p1.name</code>一开始是指向的类属性<code>name=&quot;aaa&quot;</code>,但是在实例的作用域里把类属性的引用改变了,就变成了一个实例属性,self.name不再引用Person的类属性name了.</p>
+<p>可以看看下面的例子:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span>:</span></span><br><span class="line">    name=[]</span><br><span class="line"></span><br><span class="line">p1=Person()</span><br><span class="line">p2=Person()</span><br><span class="line">p1.name.append(<span class="number">1</span>)</span><br><span class="line"><span class="keyword">print</span> p1.name  <span class="comment"># [1]</span></span><br><span class="line"><span class="keyword">print</span> p2.name  <span class="comment"># [1]</span></span><br><span class="line"><span class="keyword">print</span> Person.name  <span class="comment"># [1]</span></span><br></pre></td></tr></table></figure>
+<p>参考:<a href="http://stackoverflow.com/questions/6470428/catch-multiple-exceptions-in-one-line-except-block" target="_blank" rel="noopener">http://stackoverflow.com/questions/6470428/catch-multiple-exceptions-in-one-line-except-block</a></p>
+<h3 id="3-Python自省"><a href="#3-Python自省" class="headerlink" title="3.Python自省"></a>3.Python自省</h3><p>自省就是面向对象的语言所写的程序在运行时,所能知道对象的类型.简单一句就是运行时能够获得对象的类型.比如type(),dir(),getattr(),hasattr(),isinstance().</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line">b = &#123;<span class="string">'a'</span>:<span class="number">1</span>,<span class="string">'b'</span>:<span class="number">2</span>,<span class="string">'c'</span>:<span class="number">3</span>&#125;</span><br><span class="line">c = <span class="keyword">True</span></span><br><span class="line"><span class="keyword">print</span> type(a),type(b),type(c) <span class="comment"># &lt;type 'list'&gt; &lt;type 'dict'&gt; &lt;type 'bool'&gt;</span></span><br><span class="line"><span class="keyword">print</span> isinstance(a,list)  <span class="comment"># True</span></span><br></pre></td></tr></table></figure>
+<h3 id="4-列表解析、集合解析"><a href="#4-列表解析、集合解析" class="headerlink" title="4.列表解析、集合解析"></a>4.列表解析、集合解析</h3><p>代码示例如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">list1=[x <span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">100</span>) <span class="keyword">if</span> x%<span class="number">2</span>==<span class="number">0</span>] <span class="comment">#或 [x for x in range(0,100,2)]</span></span><br><span class="line"><span class="comment">#集合的列表生成式</span></span><br><span class="line">s=&#123;<span class="number">1</span>,<span class="number">34</span>,<span class="number">5</span>,<span class="number">-7</span>,<span class="number">6</span>,<span class="number">87</span>,<span class="number">-8</span>,<span class="number">-9</span>,<span class="number">11</span>&#125;</span><br><span class="line">print(&#123;x <span class="keyword">for</span> x <span class="keyword">in</span> s <span class="keyword">if</span> x%<span class="number">3</span>==<span class="number">0</span>&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="5-Python中单下划线和双下划线"><a href="#5-Python中单下划线和双下划线" class="headerlink" title="5.Python中单下划线和双下划线"></a>5.Python中单下划线和双下划线</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span><span class="params">()</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line"><span class="meta">... </span>            self.__superprivate = <span class="string">"Hello"</span></span><br><span class="line"><span class="meta">... </span>            self._semiprivate = <span class="string">", world!"</span></span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>mc = MyClass()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">print</span> mc.__superprivate</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">AttributeError: myClass instance has no attribute <span class="string">'__superprivate'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">print</span> mc._semiprivate</span><br><span class="line">, world!</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">print</span> mc.__dict__</span><br><span class="line">&#123;<span class="string">'_MyClass__superprivate'</span>: <span class="string">'Hello'</span>, <span class="string">'_semiprivate'</span>: <span class="string">', world!'</span>&#125;</span><br></pre></td></tr></table></figure>
+<p><code>__foo__</code>:一种约定,Python内部的名字,用来区别其他用户自定义的命名,以防冲突，就是例如<code>__init__()</code>,<code>__del__()</code>,<code>__call__()</code>这些特殊方法</p>
+<p><code>_foo</code>:一种约定,用来指定变量私有.程序员用来指定私有变量的一种方式.不能用from module import * 导入，其他方面和公有一样访问；</p>
+<p><code>__foo</code>:这个有真正的意义:解析器用<code>_classname__foo</code>来代替这个名字,以区别和其他类相同的命名,它无法直接像公有成员一样随便访问,通过对象名._类名__xxx这样的方式可以访问.</p>
+<p>详情见:<a href="http://stackoverflow.com/questions/1301346/the-meaning-of-a-single-and-a-double-underscore-before-an-object-name-in-python" target="_blank" rel="noopener">http://stackoverflow.com/questions/1301346/the-meaning-of-a-single-and-a-double-underscore-before-an-object-name-in-python</a></p>
+<p>或者: <a href="http://www.zhihu.com/question/19754941" target="_blank" rel="noopener">http://www.zhihu.com/question/19754941</a></p>
+<h3 id="6-字典、列表、元组、集合"><a href="#6-字典、列表、元组、集合" class="headerlink" title="6.字典、列表、元组、集合"></a>6.字典、列表、元组、集合</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 补充：集合的交集并集等操作</span></span><br><span class="line">A=set([randint(<span class="number">1</span>,<span class="number">20</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> range(<span class="number">10</span>)])</span><br><span class="line">B=set([randint(<span class="number">1</span>,<span class="number">20</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> range(<span class="number">10</span>)])</span><br><span class="line">print(A&amp;B,A|B,A-B,A^B) <span class="comment">#交，并，差，补</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> namedtuple</span><br><span class="line">Student = namedtuple(<span class="string">'Student'</span>, [<span class="string">'name'</span>, <span class="string">'age'</span>, <span class="string">'sex'</span>, <span class="string">'email'</span>])</span><br><span class="line">Jim = Student(<span class="string">'Jim'</span>, <span class="number">16</span>, <span class="string">'male'</span>, <span class="string">'jim8721@gamil.com'</span>)</span><br><span class="line">print(Jim.name)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用zip将字典数据转化为元组</span></span><br><span class="line">score = &#123;</span><br><span class="line">    <span class="string">'LiLei'</span>: <span class="number">79</span>,</span><br><span class="line">    <span class="string">'Jim'</span>: <span class="number">88</span>,</span><br><span class="line">    <span class="string">'Lucy'</span>: <span class="number">92</span></span><br><span class="line">&#125;</span><br><span class="line">score4 = tuple(zip(score.values(),score.keys()))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 字典排序</span></span><br><span class="line">print(sorted(score.items(),key=<span class="keyword">lambda</span> x:x[<span class="number">1</span>])) <span class="comment">#表示对生成的列表的元组索引第二位进行排序</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 字典补充 k,v交换</span></span><br><span class="line">score2=&#123;v:k <span class="keyword">for</span> k,v <span class="keyword">in</span> score.items()&#125;</span><br><span class="line">score3=dict(zip(score2.values(),score2.keys()))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 统计元素出现的频度</span></span><br><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> Counter, OrderedDict</span><br><span class="line"><span class="keyword">from</span> random <span class="keyword">import</span> randint</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line">data = [randint(<span class="number">0</span>, <span class="number">20</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> range(<span class="number">30</span>)] <span class="comment">#产生30个0到20的随机整数</span></span><br><span class="line">print(Counter(data))</span><br><span class="line">print(Counter(data).most_common(<span class="number">3</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建有序的字典</span></span><br><span class="line"><span class="keyword">from</span> functools <span class="keyword">import</span> OrderedDict</span><br><span class="line">od = OrderedDict([(<span class="string">'a'</span>, <span class="number">1</span>), (<span class="string">'b'</span>, <span class="number">2</span>), (<span class="string">'c'</span>, <span class="number">3</span>)])</span><br></pre></td></tr></table></figure>
+<h4 id="元组和列表的同异"><a href="#元组和列表的同异" class="headerlink" title="元组和列表的同异"></a>元组和列表的同异</h4><p>同：列表与元组都是容器，是一系列的对象。二者都可以包含任意类型的元素甚至可以是一个序列，还可以包含元素的顺序（不像集合和字典）。<br>元组属于不可变对象，列表属于可变对象，列表的很多方法不适用于元组；元组可哈希而列表不可哈希；元组占用空间更小，代码的语义更好理解再函数式编程较常用。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/01/Python基础与深入-一/" rel="next" title="Python基础与深入(一)">
+                <i class="fa fa-chevron-left"></i> Python基础与深入(一)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/04/Python基础与深入-三/" rel="prev" title="Python基础与深入(三)">
+                Python基础与深入(三) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Jeese zhao</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/zhwl934008411" title="GitHub &rarr; https://github.com/zhwl934008411" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:zhwl934008411@gmail.com" title="E-Mail &rarr; mailto:zhwl934008411@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-使用property创建可管理的对象属性"><span class="nav-number">1.</span> <span class="nav-text">1 使用property创建可管理的对象属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-类属性和实例属性"><span class="nav-number">2.</span> <span class="nav-text">2.类属性和实例属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Python自省"><span class="nav-number">3.</span> <span class="nav-text">3.Python自省</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-列表解析、集合解析"><span class="nav-number">4.</span> <span class="nav-text">4.列表解析、集合解析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-Python中单下划线和双下划线"><span class="nav-number">5.</span> <span class="nav-text">5.Python中单下划线和双下划线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-字典、列表、元组、集合"><span class="nav-number">6.</span> <span class="nav-text">6.字典、列表、元组、集合</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#元组和列表的同异"><span class="nav-number">6.1.</span> <span class="nav-text">元组和列表的同异</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jeese zhao</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">
+  <i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+    本站访客数:<span id="busuanzi_value_site_uv"></span>
+  </span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v6.7.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.7.0"></script>
+
+  <script src="/js/src/motion.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=6.7.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=6.7.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
