@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=6.7.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.7.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.7.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.7.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Python编码规范注：此为团队使用的一些规则，非通用规范，通用参考PEP8(2.    https://www.python.org/dev/peps/pep-0008/#source-file-encoding) 排版 程序块使用缩进风格编写，缩进数为四个空格，不要使用Tab import语句： 1.每一个模块分行书写 2.三组库的顺序：官方库或模块+pypi上的第三库或模块+本地项目的库或模">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python编码规范">
+<meta property="og:url" content="http://yoursite.com/2019/03/26/Python编码规范/index.html">
+<meta property="og:site_name" content="Jeese&#39;s Blog">
+<meta property="og:description" content="Python编码规范注：此为团队使用的一些规则，非通用规范，通用参考PEP8(2.    https://www.python.org/dev/peps/pep-0008/#source-file-encoding) 排版 程序块使用缩进风格编写，缩进数为四个空格，不要使用Tab import语句： 1.每一个模块分行书写 2.三组库的顺序：官方库或模块+pypi上的第三库或模块+本地项目的库或模">
+<meta property="og:locale" content="zh-hans">
+<meta property="og:updated_time" content="2019-03-26T16:55:19.327Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python编码规范">
+<meta name="twitter:description" content="Python编码规范注：此为团队使用的一些规则，非通用规范，通用参考PEP8(2.    https://www.python.org/dev/peps/pep-0008/#source-file-encoding) 排版 程序块使用缩进风格编写，缩进数为四个空格，不要使用Tab import语句： 1.每一个模块分行书写 2.三组库的顺序：官方库或模块+pypi上的第三库或模块+本地项目的库或模">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/26/Python编码规范/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Python编码规范 | Jeese's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/zhwl934008411" class="github-corner" aria-label="View source on GitHub">
+    <svg width="80" height="80" viewbox="0 0 250 250" style="fill:#64CEAA; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/>
+    <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/>
+    <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Jeese's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/26/Python编码规范/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeese zhao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jeese's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Python编码规范
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-03-26 00:00:00" itemprop="dateCreated datePublished" datetime="2019-03-26T00:00:00+08:00">2019-03-26</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-03-27 00:55:19" itemprop="dateModified" datetime="2019-03-27T00:55:19+08:00">2019-03-27</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="Python编码规范"><a href="#Python编码规范" class="headerlink" title="Python编码规范"></a>Python编码规范</h3><p>注：此为团队使用的一些规则，非通用规范，通用参考PEP8(2.    <a href="https://www.python.org/dev/peps/pep-0008/#source-file-encoding" target="_blank" rel="noopener">https://www.python.org/dev/peps/pep-0008/#source-file-encoding</a>)</p>
+<h4 id="排版"><a href="#排版" class="headerlink" title="排版"></a>排版</h4><ul>
+<li>程序块使用缩进风格编写，缩进数为四个空格，不要使用Tab</li>
+<li><p>import语句：</p>
+<pre><code>1.每一个模块分行书写
+2.三组库的顺序：官方库或模块+pypi上的第三库或模块+本地项目的库或模块,每组库之间加上空格
+3.导入库尽量采用绝对路径引用，避免使用from xxx import *
+4.django项目同一App内使用显式相对路径导入，django库放在第三方库前面
+5.django view视图采用class_based_view风格写，不用函数
+</code></pre><p>   （<a href="https://docs.djangoproject.com/en/dev/internals/contributing/writing-code/coding-style/）" target="_blank" rel="noopener">https://docs.djangoproject.com/en/dev/internals/contributing/writing-code/coding-style/）</a></p>
+</li>
+<li>类与类，类与函数，方法与方法之间加上一行空行，</li>
+<li>两个以上的关键字、变量、常量进行对等或运算操作时，操作符前后加上空格(函数默认参数,”*”,”**”除外)</li>
+</ul>
+<h4 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h4><ul>
+<li>模块注释信息写在最前面</li>
+<li><p>类和函数的注释信息写在定义语句的下一行，前后使用三引号：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    xxx</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    xxx</span></span><br><span class="line"><span class="string">    """</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>可以在语句添加一些必要的注释，不要在语句同一行后面添加注释</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="comment"># 这是占位符</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line">    <span class="keyword">pass</span> <span class="comment"># 这是占位符,不允许使用</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="命名"><a href="#命名" class="headerlink" title="命名"></a>命名</h4><ul>
+<li>模块、包、函数、方法、函数参数、变量使用意思完整的全小写英文描述(单词间可加上下划线)，例如webserver或者web_server</li>
+<li>类名称首字母大写，采用驼峰命名法CapWords风格，例如MyClass</li>
+</ul>
+<h4 id="编码"><a href="#编码" class="headerlink" title="编码"></a>编码</h4><ul>
+<li>对象与None作比较时，使用is/is not,不要用==</li>
+<li>异常处理采用try…except…except…[else…][finally…)结构（else可省略）<br>异常捕获要明确处理的是哪种异常</li>
+<li>获取dict某个键的值采用dict.get(key),不使用dict[key]</li>
+<li>内部元素确定的序列采用tuple存储</li>
+<li>列表内的字符串连接采用join方法，不采用切片方式</li>
+<li>对象类型检查使用isinstance方式，不要type方式</li>
+<li>序列的复杂处理可以采用推导式，逻辑太复杂的写函数</li>
+<li>慎用lambda和高阶函数(reduce,map,sort,filter)，逻辑太复杂的写函数</li>
+<li>递归处理不要超过三层</li>
+<li>功能测试性质的代码放在”if <strong>name</strong> == ‘<strong>main</strong>‘:”</li>
+<li><p>logging日志记录模块单文件放置，其他模块引入(from mylogger import logger)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># mylogger.py</span></span><br><span class="line"><span class="keyword">import</span> logging</span><br><span class="line"></span><br><span class="line">logger = logging.getLogger()</span><br><span class="line"><span class="comment"># 先给logger设置一个基础Level，不设置默认为WARNING，重要！</span></span><br><span class="line">logger.setLevel(logging.DEBUG)</span><br><span class="line"><span class="comment"># 创建一个handler，用于写入日志文件</span></span><br><span class="line">scan_log = logging.FileHandler(<span class="string">"scan.log"</span>)</span><br><span class="line">scan_log.setLevel(logging.DEBUG)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义handler的输出格式</span></span><br><span class="line">formatter = logging.Formatter(<span class="string">'%(asctime)s - %(name)s - %(levelname)s - %(message)s'</span>)</span><br><span class="line">scan_log.setFormatter(formatter)</span><br><span class="line"><span class="comment"># 给logger添加handler</span></span><br><span class="line">logger.addHandler(scan_log)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>多线程和多进程使用Queue来协调管理任务和任务间的通信</p>
+</li>
+<li><p>函数默认参数不要使用list等可变对象(空列表用None代替)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(bar=None)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> bar <span class="keyword">is</span> <span class="keyword">None</span>:</span><br><span class="line">        bar = []</span><br><span class="line">    bar.append(<span class="string">"aaa"</span>)</span><br><span class="line">    <span class="keyword">return</span> bar</span><br><span class="line"><span class="comment"># 错误方式</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(bar=[])</span>:</span></span><br><span class="line">    bar.append(<span class="string">"aaa"</span>)</span><br><span class="line">    <span class="keyword">return</span> bar</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>无关代码但是与模块逻辑有关的需要删除，安全性高的代码打包前需要Cython模块编译为pyd文件，密钥等关键数据建议使用pycryptodome模块加密<br><a href="http://www.lizenghai.com/archives/898.html" target="_blank" rel="noopener">http://www.lizenghai.com/archives/898.html</a></p>
+</li>
+<li>重复性的代码要封装成可复用的函数和方法</li>
+</ul>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/26/django添加login-required装饰器/" rel="next" title="django添加login required装饰器">
+                <i class="fa fa-chevron-left"></i> django添加login required装饰器
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/26/django信号量入门/" rel="prev" title="django信号量入门">
+                django信号量入门 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Jeese zhao</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/zhwl934008411" title="GitHub &rarr; https://github.com/zhwl934008411" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:zhwl934008411@gmail.com" title="E-Mail &rarr; mailto:zhwl934008411@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Python编码规范"><span class="nav-number">1.</span> <span class="nav-text">Python编码规范</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#排版"><span class="nav-number">1.1.</span> <span class="nav-text">排版</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注释"><span class="nav-number">1.2.</span> <span class="nav-text">注释</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#命名"><span class="nav-number">1.3.</span> <span class="nav-text">命名</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#编码"><span class="nav-number">1.4.</span> <span class="nav-text">编码</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jeese zhao</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">
+  <i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+    本站访客数:<span id="busuanzi_value_site_uv"></span>
+  </span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v6.7.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.7.0"></script>
+
+  <script src="/js/src/motion.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=6.7.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=6.7.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
