@@ -1,9 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[django http请求处理流程]]></title>
-    <url>%2F2019%2F03%2F26%2Fdjango-http%E8%AF%B7%E6%B1%82%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B%2F</url>
-    <content type="text"><![CDATA[django http请求处理流程：1. 加载setting.py 2. 创建WSGIServer 3. 处理Request 1.用户通过浏览器请求一个页面 2.请求到达Request Middlewares，中间件对request做一些预处理或者直接response请求 3.URLConf通过urls.py文件和请求的URL找到相应的View 4.View Middlewares被访问，它同样可以对request做一些处理或者直接返回response 5.调用View中的函数 6.View中的方法可以选择性的通过Models访问底层的数据 7.所有的Model-to-DB的交互都是通过manager完成的 8.如果需要，Views可以使用一个特殊的Context 9.Context被传给Template用来生成页面 a.Template使用Filters和Tags去渲染输出 b.输出被返回到View c.HTTPResponse被发送到Response Middlewares d.任何Response Middlewares都可以丰富response或者返回一个完全不同的response e.Response返回到浏览器，呈现给用户 4. 返回Response]]></content>
+    <title><![CDATA[Celery入门]]></title>
+    <url>%2F2019%2F03%2F28%2FCelery%E5%85%A5%E9%97%A8%2F</url>
+    <content type="text"><![CDATA[Celery入门Celery基础Celery是一个专注于实时处理和任务调度的分布式任务队列。Celery特性：方便查看定时任务的执行情况(包含执行结果，执行状态，执行时间等)、任务支持后台管理(安装flower组件)、可选多进程Eventlet和Gevent三种模式执行任务、支持多种消息代理和后端存储 Celery包含的组件: Producer：任务生产者，可用task装饰器或其他方法将函数转化为celery任务 Broker:消息代理（或称消息中间件），接收Celery Beat发送过来的任务，存储到任务队列再有序发给worker执行，生产环境推荐使用Rabbit或Redis存储任务队列 Celery Beat:任务调度器，负责发布异步或定时任务给Broker Celery Workr:任务执行者， Result Backend:任务处理完保存执行状态和结果，生产环境推荐使用redis存储当worker运行完结果之后就会把他返回给生产者的唯一id作为键，将结果作为值传递给你设置的worker(backend测试环境为redis). Celery序列化:在Broker和消费者之间传输的是序列化的数据（类似前后端分离传递json），支持pickle/json/yaml/msgpack方案，推荐使用msgpack Celery的使用1.安装pip install celeryredispip install redis==2.10.6 msgpack celery==3.1.20(windows采用方案) 2.采用celery包启动 准备：新建python包celery_learn、app.py文件celery_learn 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556# __init__.pyfrom celery import Celeryapp = Celery("mytask")app.config_from_object('celery_learn.celery_config')# celery_config.py# -*- coding: utf-8 -*-from datetime import timedeltafrom celery.schedules import crontabBROKER_URL = "redis://127.0.0.1:6379/4"BACKEND_URL = "redis://127.0.0.1:6379/5"# CELERY_RESULT_BACKEND = "redis://127.0.0.1:6379/5"CELERY_TIMEZONE = 'Asia/Shanghai'# 导入指定的任务模块CELERY_IMPORTS = ( 'celery_learn.task1', 'celery_learn.task2',)# 定时任务CELERYBEAT_SCHEDULE = &#123; 'task1': &#123; 'task': 'celery_learn.task1.func', 'schedule': timedelta(seconds=10), # 'args': () &#125;, 'task2': &#123; 'task': 'celery_learn.task2.add', 'schedule': crontab(hour=11, minute=48), 'args': (4, 5) &#125;&#125;# task1.pyfrom celery_learn import app@app.taskdef func(list1=None): if list1 is None: list1 = [] for i in range(10000000): list1.append(i) return list1[-1]# task2.pyimport timefrom celery_learn import app@app.taskdef add(x,y): time.sleep(3) return x+y app.py1234567891011from celery_learn import task1from celery_learn import task2if __name__ == '__main__': task1.func.delay() # 或者用apply_async() # task1.func.apply_async() task2.add.delay(2,3) print("end.....") 3.启动 -A参数：指定任务启动的文件名 -l参数：指定日志级别(INFO,DEBUG,WARNING,ERROR,默认是WARNING)1.开启异步任务 启动worker：celery worker -A celery_learn -l INFO 开启任务:python app.py2.开启定时任务 celery任务调度Beat(用作定时任务)：celery beat -A celery_learn -l INFO 启动worker：celery worker -A celery_learn -l INFO –logfile celery_learn/log/celery.log 一起启动beat和worker：celery -B -A celery_learn worker -l INFO(windows不适用)https://github.com/zhwl934008411/celery-learning]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>Celery</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[多线程与队列的运用]]></title>
+    <url>%2F2019%2F03%2F28%2F%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E9%98%9F%E5%88%97%E7%9A%84%E8%BF%90%E7%94%A8%2F</url>
+    <content type="text"><![CDATA[多线程与队列的运用（多进程，进程池，协程池）多线程和队列、多进程和队列123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869# 多线程from queue import Queuefrom threading import Threadimport timequeue = Queue()def put_data(): for i in range(100): print("添加数据: &#123;&#125;".format(i)) queue.put_nowait(i)def get_data(): time.sleep(0.01) while True: print("获取数据:&#123;&#125;".format(queue.get())) queue.task_done()# 创建线程执行任务t1 = Thread(target=put_data)t1.setDaemon(True)t1.start()t2 = Thread(target=get_data)# 把当前线程设置为守护线程t2.setDaemon(True)t2.start()# 让主线线程等待队列的任务完成queue.join()print('主线程结束了')"""改为多进程：from queue import Queuefrom threading import Thread修改为from multiprocessing import JoinableQueuefrom multiprocessing import Process"""# 补充:多进程任务添加参数，from multiprocessing import Manager，JoinableQueue，Processqueue = JoinableQueue()def put_data(): for i in range(100): print("添加数据: &#123;&#125;".format(i)) queue.put_nowait(i)def get_data(l): time.sleep(0.01) while True: print("获取数据:&#123;&#125;".format(queue.get())) l.append(i) queue.task_done()with Manager() as manager: L = manager.list() p_obj = [] for i in range(30): p = Process(target=get_data, args=(L,)) p.start() p_obj.append(p) for p in p_obj: p.join() list1 = list(L) 进程池和队列12345678910111213141516171819202122232425262728293031323334353637383940"""改为进程池：from queue import Queuefrom threading import Thread修改为from multiprocessing.dummy import Poolfrom queue import Queue"""from multiprocessing.dummy import Poolfrom queue import Queueimport timequeue = Queue()def put_data(): for i in range(100): print("添加数据: &#123;&#125;".format(i)) queue.put_nowait(i)def get_data(): while True: print("获取数据:&#123;&#125;".format(queue.get())) time.sleep(0.01) queue.task_done()# 创建进程池对象pool = Pool(3)# 执行异步任务pool.apply_async(put_data)pool.apply_async(get_data)# pool.close()# 让主进程等待 进程池中任务完成# pool.join()# 让主进程稍微等待下time.sleep(0.1)# 等待队列任务的完成queue.join() 协程池和队列12345678910111213141516171819202122232425262728293031323334353637383940414243444546# 打猴子补丁from gevent import monkeymonkey.patch_all()# 导入协程池from gevent.pool import Pool"""总结: 线程池改协程池1. 把导入进程池, 改为导入协程池2. 打猴子补丁3. 初始化方法, 创建协程池可以不指定个数"""from queue import Queueimport timequeue = Queue()def put_data(): for i in range(100): print("添加数据: &#123;&#125;".format(i)) queue.put_nowait(i)def get_data(): while True: print("获取数据:&#123;&#125;".format(queue.get())) time.sleep(0.01) queue.task_done()# 创建协程池对象pool = Pool()# 执行异步任务pool.apply_async(put_data)pool.apply_async(get_data)# pool.close()# 让主线程等待 协程池中任务完成# pool.join()# 让主线程稍微等待下time.sleep(0.1)# 等待队列任务的完成queue.join() 待完成：supervisor使用.md]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[使用socket和线程池爬取数据]]></title>
+    <url>%2F2019%2F03%2F28%2F%E4%BD%BF%E7%94%A8socket%E5%92%8C%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%88%AC%E5%8F%96%E6%95%B0%E6%8D%AE%2F</url>
+    <content type="text"><![CDATA[使用socket和线程池爬取数据1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556# 使用socket和线程池爬取数据import socketfrom urllib.parse import urlparsedef get_url(url): #通过socket请求html url = urlparse(url) host = url.netloc# 提取主域名 path = url.path if path == "": path = "/" #建立socket连接 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # client.setblocking(False) client.connect((host, 80)) #阻塞不会消耗cpu #不停的询问连接是否建立好， 需要while循环不停的去检查状态 #做计算任务或者再次发起其他的连接请求 client.send("GET &#123;&#125; HTTP/1.1\r\nHost:&#123;&#125;\r\nConnection:close\r\n\r\n".format(path, host).encode("utf8")) data = b"" while True: d = client.recv(1024) if d: data += d else: break data = data.decode("utf8") html_data = data.split("\r\n\r\n")[1]# 去掉HTTP请求头 # print(data) print(html_data) client.close()if __name__ == "__main__": import time start_time = time.time() # pip install threadpool import threadpool pool = threadpool.ThreadPool(10) urllist = [] for i in range(2,20): url = "xxx/?page=&#123;&#125;/".format(i) urllist.append(url) requests = threadpool.makeRequests(get_url,urllist) [pool.putRequest(req) for req in requests] pool.wait() # for url in range(2,5): # url = "xxx/?page=&#123;&#125;/".format(url) # get_url(url) print(time.time()-start_time)]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[使用socket和asynico库爬取数据]]></title>
+    <url>%2F2019%2F03%2F28%2F%E4%BD%BF%E7%94%A8socket%E5%92%8Casynico%E5%BA%93%E7%88%AC%E5%8F%96%E6%95%B0%E6%8D%AE%2F</url>
+    <content type="text"><![CDATA[### 使用socket和asynico库爬取数据1234567891011121314151617181920212223242526272829303132333435363738# 使用socket和asynico库爬取数据#asyncio 没有提供http协议的接口 aiohttpimport asyncioimport socketfrom urllib.parse import urlparseasync def get_url(url): #通过socket请求html url = urlparse(url) host = url.netloc path = url.path if path == "": path = "/" #建立socket连接 reader, writer = await asyncio.open_connection(host,80) writer.write("GET &#123;&#125; HTTP/1.1\r\nHost:&#123;&#125;\r\nConnection:close\r\n\r\n".format(path, host).encode("utf8")) all_lines = [] async for raw_line in reader: data = raw_line.decode("utf8") all_lines.append(data) html = "\n".join(all_lines) html_data = html.split("\r\n\r\n") print(len(html_data)) return html_dataasync def main(): url = "xxx/?page=&#123;&#125;" for i in range(2,20): task = asyncio.create_task(get_url(url.format(i))) await taskif __name__ == "__main__": import time start_time = time.time() asyncio.run(main(),debug=True) print('last time:&#123;&#125;'.format(time.time()-start_time)) https://docs.python.org/zh-cn/3/library/asyncio.html]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>asynico</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[socket通信实现]]></title>
+    <url>%2F2019%2F03%2F28%2Fsocket%E9%80%9A%E4%BF%A1%E5%AE%9E%E7%8E%B0%2F</url>
+    <content type="text"><![CDATA[socket通信实现使用多线程搞定多客户端连接12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849# 使用多线程搞定多客户端连接# socket_client.pyimport socketclient = socket.socket(socket.AF_INET,socket.SOCK_STREAM)client.connect(("127.0.0.1",8888))while True: str1 = input() client.send(str1.encode("utf8")) if str1== "exit" or str1== "bye": break data = client.recv(1024) print(data.decode("utf8")) # client.close()client.close()# socket_server.pyimport socketfrom threading import Thread# SOCK_STREAM： TCP传输协议，可靠，有序传输 SOCK_DGRAM UDPserver = socket.socket(socket.AF_INET, socket.SOCK_STREAM)server.bind(('127.0.0.1', 8888))server.listen()# 使用多线程搞定多客户端连接def handle_socket(sock, addr): while True: # 一次获取1kb的数据 data = sock.recv(1024) print(data.decode("utf-8")) if data.decode("utf-8") == "exit" or data.decode("utf-8") == "bye": break str1 = input() sock.send(str1.encode("utf-8")) server.close() sock.close()while True: sock, addr = server.accept() # 使用多线程处理客户端连接 sockthread = Thread(target=handle_socket, args=(sock, addr)) sockthread.start() # server.close() # sock.close() 单客户端连接123456789101112131415161718192021222324252627282930313233343536# 单客户端连接# socket_server.pyimport socketfrom threading import Thread# SOCK_STREAM： TCP传输协议，可靠，有序传输 SOCK_DGRAM UDPserver = socket.socket(socket.AF_INET, socket.SOCK_STREAM)server.bind(('127.0.0.1', 8888))server.listen()sock, addr = server.accept()while True: # 一次获取1kb的数据 data = sock.recv(1024) print(data.decode("utf-8")) if data.decode("utf-8") == "exit" or data.decode("utf-8") == "bye": break str1 = input() sock.send(str1.encode("utf-8"))server.close()sock.close()# socket_client.pyimport socketclient = socket.socket(socket.AF_INET,socket.SOCK_STREAM)client.connect(("127.0.0.1",8888))while True: str1 = input() client.send(str1.encode("utf8")) data = client.recv(1024) print(data.decode("utf8"))client.close()]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[python上下文管理类型]]></title>
+    <url>%2F2019%2F03%2F28%2Fpython%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%A1%E7%90%86%2F</url>
+    <content type="text"><![CDATA[Python上下文管理类型1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980# 上下文管理协议（常用于文件自动关闭、线程锁自动释放、数据库自动关闭连接、socket连接）# 最简单的实现class Sample(object): def __enter__(self): print("enter") return self def __exit__(self, exc_type, exc_val, exc_tb): print("exit") def do_something(self): print("do something")# with语句首先先调用__enter__方法with Sample() as sample: # 方法执行结束后自动调用__exit__方法 sample.do_something()# 线程锁自动释放的实现import threadingclass LockContext(object): def __init__(self): self.lock = threading.Lock() def __enter__(self): print("enter") self.lock.acquire() return self def __exit__(self, exc_type, exc_val, exc_tb): print("exit") self.lock.release()my_list=[1,2,3]with LockContext():my_list.append(4)# 附加：# 文件自动关闭、线程锁自动释放、数据库自动关闭连接，socket自动关闭连接with open("a.txt",'w') as file: file.write("hello world")import threadinglock = threading.Lock()my_list=[1,2,3]with lock: my_list.append(4)import sqlite3sql_conn = sqlite3.connect("result.db", timeout=5)with sql_conn as cur: cur.execute("SELECT * FROM xxx")import socketwith socket.socket(socket.AF_INET,socket.SOCK_STREAM) as client: client.connect("127.0.0.1",8000) client.send("hello".encode("utf8"))# 使用上下文管理工具contextlib，不用再创建类以及实现__enter__,__exit__方法from contextlib import contextmanager@contextmanagerdef make_conn_context(sqlpath): import sqlite3 sql_conn = sqlite3.connect(sqlpath, timeout=5) try: yield sql_conn finally: sql_conn.close()with make_conn_context(sqlpath="result.db") as cur: create_sql = '''create table requisitioninfo( ip_address varchar(20) not null, master varchar(50) not null); ''' cur.execute(create_sql) Python常用的魔术方法作用：增强类的功能,定义后不需要显式调用,主要分为以下几类 字符串表示：__str__,__repr__ 集合,序列相关，__len__,__getitem__,__setitem__,__delitem__,__contains__ 迭代相关：__iter__,__next__ 可调用:__call__ with上下文管理器:__enter__,__exit__ 数值转换：__abs__,__bool__,__int__,__float__,__hash__,__index__ 元类相关:__new__,__init__ 属性相关：__getattr(self, name)__,__setattr(self, name, value)__,__getattribute__,__setattribute__,__dir__,__dict__ 属性描述符：__get__,__set__,__delete__ 数学二元运算符:__lt__,__le__,__eq__,__ne__,__gt_,__ge__, 1.字符串表示12345678910111213141516171819# 字符串表示"""打印实例，返回我们想要的结果，可以添加__repr__,__str__方法打印列表以及字典等容器类型或命令行查看实例会调用: __repr__ 方法,"""class MyClass(object): def __init__(self,str1): self.str1 = str1 def __str__(self): return "__str__:&#123;&#125;".format(self.str1) def __repr__(self): return "__repr__:&#123;&#125;".format(self.str1)if __name__ == '__main__': str1 = "示例字符串" mc = MyClass(str1) print(mc) 2.集合,序列相关，迭代相关12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970# -*- coding: utf-8 -*-# 自定义listclass FunctionalList(object): ''' 实现了内置类型list的功能,并丰富了一些其他方法: head, tail, init, last, drop, take''' def __init__(self, values=None): if values is None: self.values = [] else: self.values = values def __len__(self):# 返回长度 return len(self.values) def __getitem__(self, key):# 返回list某个索引的值 return self.values[key] def __setitem__(self, key, value): self.values[key] = value def __delitem__(self, key): del self.values[key] def __contains__(self, item): if item in self.values: return True return False def __iter__(self): return iter(self.values) def __reversed__(self): return FunctionalList(reversed(self.values)) def append(self, value): self.values.append(value) def head(self): # 获取第一个元素 return self.values[0] def tail(self): # 获取第一个元素之后的所有元素 return self.values[1:] def init(self): # 获取最后一个元素之前的所有元素 return self.values[:-1] def last(self): # 获取最后一个元素 return self.values[-1] def drop(self, n): # 获取所有元素，除了前N个 return self.values[n:] def take(self, n): # 获取前N个元素 return self.values[:n]if __name__ == '__main__': fl = FunctionalList(values=[1,2,3,4,5]) print(1 in fl) print(len(fl)) for i in reversed(fl): print(i) print(fl.head()) print(fl.tail()) print(fl.init()) print(fl.last()) print(fl.drop(1)) print(fl.take(1)) fl.append(6) for i in fl: print(i) 3.属性相关123456789101112131415161718# 正确用法def __setattr__(self, name, value): self.__dict__[name] = value # 给类中的属性名分配值def __getattr__(self, name): return self.__dict__[name]"""附加说明__getattribute__与__getattr__的区别__getattribute__定义了你的属性被访问时的行为，相比较，__getattr__只有该属性不存在时才会起作用。因此，在支持__getattribute__的Python版本,调用__getattr__前必定会调用 __getattribute__。__getattribute__同样要避免”无限递归”的错误。需要提醒的是，最好不要尝试去实现__getattribute__,因为很少见到这种做法，而且很容易出bug。""" 4.属性描述符12345678910111213141516171819202122232425262728293031323334'''使用描述符来实现需要类型检查的属性:分别实现__get__,__set__,__delete__方法,在__set__内使用isinstance函数做类型检查'''class Attr(object): def __init__(self, name, type_): self.name = name self.type_ = type_ def __get__(self, instance, cls): # print('in __get__', instance, cls) return instance.__dict__[self.name] def __set__(self, instance, value): print('in __set__') if not isinstance(value,self.type_): raise TypeError('expected an %s' % self.type_) instance.__dict__[self.name] = value def __delete__(self, instance): # print('in __del__') del instance.__dict__[self.name]class Person(object): # x = Descriptor() # x为类的属性 name = Attr('name', str) age = Attr('age', int) heigth = Attr('height', float)p = Person()p.name = 'Bob'print(p.name) 5.数学二元运算符，描述符12345678910111213141516171819202122232425262728293031323334353637383940414243444546# coding:utf8from functools import total_orderingfrom math import pifrom abc import ABCMeta, abstractmethod@total_ordering # 装饰器class Shape(object): @abstractmethod def getArea(self): pass def __lt__(self, obj): print('in__lt__') if not isinstance(obj, Shape): raise TypeError('obj is not Shape') return self.getArea() &lt; obj.getArea() def __eq__(self, obj): print('in__eq__') if not isinstance(obj, Shape): raise TypeError('obj is not Shape') return self.getArea() == obj.getArea()class Circle(Shape): def __init__(self, radius): self.radius = radius def getRadius(self): # return self.radius return round(self.radius, 2) # 表示四舍五入后保留小数点后两位 def setRadius(self, value): if not isinstance(value, (int, long, float)): raise valueError('wrong type .') self.radius = float(value) def getArea(self): return self.radius * self.radius * pi R = property(getRadius, setRadius)radius1 = Circle(4)radius2 = Circle(5)print(radius1 == radius2)print(radius1 &lt; radius2)]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[django集成celery添加异步任务]]></title>
+    <url>%2F2019%2F03%2F27%2Fdjango%E9%9B%86%E6%88%90celery%E6%B7%BB%E5%8A%A0%E5%BC%82%E6%AD%A5%E4%BB%BB%E5%8A%A1%2F</url>
+    <content type="text"><![CDATA[django集成celery添加异步任务django集成celery一.安装pip install celery[redis](windows不适用,4.1.0版本定时任务有bug) pip install redis==2.10.6 msgpack celery==3.1.20(windows采用方案) pip install django-celery-3.2.2 二.应用1.添加celery配置1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677# settings.py增加如下内容INSTALLED_APPS.append('djcelery',)from .celeryconfig import *BROKER_BACKEND = 'redis'BROKER_URL = 'redis://@127.0.0.1:6379/1'CELERY_RESULT_BACKEND = 'redis://@127.0.0.1:6379/2'# settings同一目录下添加celeryconfig.py# celeryconfig.pyfrom datetime import timedeltaimport djceleryfrom celery.schedules import crontabdjcelery.setup_loader()CELERY_IMPORTS = ( 'app.tasks',)CELERY_TASK_SERIALIZER = "msgpack"CELERY_RESULT_SERIALIZER = "json"CELERY_TASK_RESULT_EXPIRES = 60 * 60 * 24 # 任务执行结果超时时间CELERY_ACCEPT_CONTENT = ['json','msgpack']CELERY_TIMEZONE = 'Asia/Shanghai'# 有些情况可以防止死锁CELERY_FORCE_EXECV =True# 设置并发的worker数CELERY_CONCURRENCY = 4# 允许重试CELERY_ACKS_LATE = True# 每个worker最多执行100个任务被销毁，可以防止内存泄漏CELERY_MAX_TASKS_PER_CHILD = 100# 单个任务运行超时时间CELERY_TASK_TIME_LIMIT = 12 * 30# 自定义任务队列CELERY_QUEUES = &#123; # 定时任务队列 'beat_task':&#123; 'exchange':'beat_task', 'exchange_type':'direct', 'binding_key':'beat_task' &#125;, # 普通异步任务队列 'work_queue':&#123; 'exchange':'work_queue', 'exchange_type':'direct', 'binding_key':'work_queue' &#125;,&#125;CELERY_DEFAULT_QUEUE = 'work_queue'# 定时任务CELERYBEAT_SCHEDULE = &#123; 'task1':&#123; 'task':'mytask', 'schedule':timedelta(seconds=10),# 每十秒执行一次 'args':(), 'options':&#123; 'queue':'beat_task' &#125; &#125;, 'task2': &#123; 'task': 'mytask2', 'schedule': crontab(hour=17,minute=51), #16:50执行 'options':&#123; 'queue':'beat_task' &#125; &#125;&#125; 2.添加任务1234567891011121314151617181920212223242526272829303132333435363738394041424344# 运行python manage.py startapp app,app目录下添加tasks.py# tasks.pyfrom celery.task import Task# 定时任务class MyTask(Task): name = "mytask" def run(self,list1=None): if list1 is None: list1 = [] for i in range(10000000): list1.append(i) return list1[-1]# 异步任务class MyTask2(Task): name = "mytask2" def run(self,list1=None): if list1 is None: list1 = [] for i in range(10000000): list1.append(i) return list1[-1]# view.pyfrom django.http.response import JsonResponsefrom django.shortcuts import renderfrom .tasks import MyTask2# Create your views here.def do(request): # CourseTask.delay() # 执行异步任务 print('do request') MyTask2.apply_async(args=([1,2,3],),queue="work_queue") return JsonResponse(&#123;'result': 'ok'&#125;)# urls.pyfrom app.views import dourlpatterns.append(path('run/',do,name="run")) 三.启动-l参数：指定日志级别(INFO,DEBUG,WARNING,ERROR,默认是WARNING) 1.开启异步任务1.启动worker：python manage.py celery worker -l INFO --logfile /log/celery.log 2.启动django：python manage.py runserver 3.访问URL:127.0.0.1:8000/run 2.再开启定时任务celery任务调度Beat：python manage.py celerybeat -l info --logfile /log/beat.log 四.任务监控 flower安装：pip install flower启动：celery flower –basic_auth=root:123456访问：127.0.0.1:5555 https://github.com/zhwl934008411/celery-learning]]></content>
+      <categories>
+        <category>Django</category>
+      </categories>
+      <tags>
+        <tag>Django</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[django性能分析]]></title>
+    <url>%2F2019%2F03%2F27%2Fdjango%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90%2F</url>
+    <content type="text"><![CDATA[django-debug-toolbardjango-debug-toolbar是非常好用的django性能分析工具安装:pip install django-debug-toolbar123456789101112# settings.py增加如下内容INSTALLED_APPS.append('djcelery',)MIDDLEWARE.append('debug_toolbar.middleware.DebugToolbarMiddleware',)INTERNAL_IPS = ['127.0.0.1']# urls.pyif settings.DEBUG: import debug_toolbar urlpatterns += [ path(r'__debug__/', include(debug_toolbar.urls)), ]]]></content>
+      <categories>
+        <category>Django</category>
+      </categories>
+      <tags>
+        <tag>Django</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Python编码规范]]></title>
+    <url>%2F2019%2F03%2F26%2FPython%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83%2F</url>
+    <content type="text"><![CDATA[Python编码规范注：此为团队使用的一些规则，非通用规范，通用参考PEP8(2. https://www.python.org/dev/peps/pep-0008/#source-file-encoding) 排版 程序块使用缩进风格编写，缩进数为四个空格，不要使用Tab import语句： 1.每一个模块分行书写 2.三组库的顺序：官方库或模块+pypi上的第三库或模块+本地项目的库或模块,每组库之间加上空格 3.导入库尽量采用绝对路径引用，避免使用from xxx import * 4.django项目同一App内使用显式相对路径导入，django库放在第三方库前面 5.django view视图采用class_based_view风格写，不用函数 （https://docs.djangoproject.com/en/dev/internals/contributing/writing-code/coding-style/） 类与类，类与函数，方法与方法之间加上一行空行， 两个以上的关键字、变量、常量进行对等或运算操作时，操作符前后加上空格(函数默认参数,”*”,”**”除外) 注释 模块注释信息写在最前面 类和函数的注释信息写在定义语句的下一行，前后使用三引号： 123456789class A: """ xxx """def func(): """ xxx """ 可以在语句添加一些必要的注释，不要在语句同一行后面添加注释 1234def func(): # 这是占位符 pass pass # 这是占位符,不允许使用 命名 模块、包、函数、方法、函数参数、变量使用意思完整的全小写英文描述(单词间可加上下划线)，例如webserver或者web_server 类名称首字母大写，采用驼峰命名法CapWords风格，例如MyClass 编码 对象与None作比较时，使用is/is not,不要用== 异常处理采用try…except…except…[else…][finally…)结构（else可省略）异常捕获要明确处理的是哪种异常 获取dict某个键的值采用dict.get(key),不使用dict[key] 内部元素确定的序列采用tuple存储 列表内的字符串连接采用join方法，不采用切片方式 对象类型检查使用isinstance方式，不要type方式 序列的复杂处理可以采用推导式，逻辑太复杂的写函数 慎用lambda和高阶函数(reduce,map,sort,filter)，逻辑太复杂的写函数 递归处理不要超过三层 功能测试性质的代码放在”if name == ‘main‘:” logging日志记录模块单文件放置，其他模块引入(from mylogger import logger) 123456789101112131415# mylogger.pyimport logginglogger = logging.getLogger()# 先给logger设置一个基础Level，不设置默认为WARNING，重要！logger.setLevel(logging.DEBUG)# 创建一个handler，用于写入日志文件scan_log = logging.FileHandler("scan.log")scan_log.setLevel(logging.DEBUG)# 定义handler的输出格式formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')scan_log.setFormatter(formatter)# 给logger添加handlerlogger.addHandler(scan_log) 多线程和多进程使用Queue来协调管理任务和任务间的通信 函数默认参数不要使用list等可变对象(空列表用None代替) 123456789def func(bar=None): if bar is None: bar = [] bar.append("aaa") return bar# 错误方式def func(bar=[]): bar.append("aaa") return bar 无关代码但是与模块逻辑有关的需要删除，安全性高的代码打包前需要Cython模块编译为pyd文件，密钥等关键数据建议使用pycryptodome模块加密http://www.lizenghai.com/archives/898.html 重复性的代码要封装成可复用的函数和方法]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+      </tags>
   </entry>
   <entry>
     <title><![CDATA[xadmin自定义菜单]]></title>
@@ -28,6 +122,17 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[django信号量入门]]></title>
+    <url>%2F2019%2F03%2F26%2Fdjango%E4%BF%A1%E5%8F%B7%E9%87%8F%E5%85%A5%E9%97%A8%2F</url>
+    <content type="text"><![CDATA[django信号量注册成功用户后自动创建token1234567891011121314151617181920212223242526272829303132# Signals.pyfrom django.db.models.signals import post_savefrom django.db.models.signals import post_delete # 也可以自动删除from django.dispatch import receiverfrom rest_framework.authtoken.models import Tokenfrom django.contrib.auth import get_user_modelUser = get_user_model()@receiver(post_save, sender=User)def create_auth_token(sender, instance=None, created=False, **kwargs): if created: Token.objects.create(user=instance)# djangorestframework从前端拿到用户名和密码后存储加密后的密码@receiver(post_save, sender=User)def create_user(sender, instance=None, created=False, **kwargs): if created: password = instance.password instance.set_password(password) instance.save()# app.pyfrom django.apps import AppConfigclass UsersConfig(AppConfig): name = 'users' verbose_name = "用户" def ready(self): import users.Signals]]></content>
+      <categories>
+        <category>Django</category>
+      </categories>
+      <tags>
+        <tag>Django</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[xadmin将导入的excel文件保存到数据库]]></title>
     <url>%2F2019%2F03%2F26%2Fxadmin%E5%A6%82%E4%BD%95%E5%B0%86%E5%AF%BC%E5%85%A5excel%E6%96%87%E4%BB%B6%E4%BF%9D%E5%AD%98%E5%88%B0%E6%95%B0%E6%8D%AE%E5%BA%93%2F</url>
     <content type="text"><![CDATA[xadmin将导入的excel文件保存到数据库1234567891011121314151617181920212223242526272829303132333435import_excel = True # 允许通过EXCEl导入def post(self, request,*args, **kwargs): if 'excel' in request.FILES: execl_file = request.FILES.get('excel') files = xlrd.open_workbook(filename=None, file_contents=execl_file.read()) # 获取excel第一个表 rsheet = files.sheet_by_index(0) nrows = rsheet.nrows IP_pattern = re.compile( r"^(?:[0-9]&#123;1,3&#125;\.)&#123;3&#125;[0-9]&#123;1,3&#125;$") # 第一行一般为表头，所以从第二行开始取值 # Environment.objects.create() # 一条一条的导入数据 # Environment.objects.bulk_create() # 批量导入数据 # Environment.objects.update_or_create() # 导入一条或更新数据 # python manage.py dumpdata &gt; netcheck.json for j in range(1, nrows): location = rsheet.row_values(j)[0] city = rsheet.row_values(j)[1] building = rsheet.row_values(j)[2] floor = rsheet.row_values(j)[3] room = rsheet.row_values(j)[4] ip_address = rsheet.row_values(j)[5] # if re.match(IP_pattern, ip_address): if location == "绿区": location = "green" Environment.objects.create(location=location, city=city, building=building, floor=floor, room=room, ip_address=ip_address,proposer=str(request.user.username)) elif location == "黄区": location = "yellow" Environment.objects.create(location=location, city=city, building=building, floor=floor, room=room, ip_address=ip_address, proposer=str(request.user.username)) # else: # print(ip_address) return super(EnvironmentAdmin, self).post(request,args, kwargs)]]></content>
@@ -36,6 +141,22 @@
       </categories>
       <tags>
         <tag>xadmin</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[django http请求处理流程]]></title>
+    <url>%2F2019%2F03%2F26%2Fdjango-http%E8%AF%B7%E6%B1%82%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B%2F</url>
+    <content type="text"><![CDATA[django http请求处理流程：1. 加载setting.py 2. 创建WSGIServer 3. 处理Request 1.用户通过浏览器请求一个页面 2.请求到达Request Middlewares，中间件对request做一些预处理或者直接response请求 3.URLConf通过urls.py文件和请求的URL找到相应的View 4.View Middlewares被访问，它同样可以对request做一些处理或者直接返回response 5.调用View中的函数 6.View中的方法可以选择性的通过Models访问底层的数据 7.所有的Model-to-DB的交互都是通过manager完成的 8.如果需要，Views可以使用一个特殊的Context 9.Context被传给Template用来生成页面 a.Template使用Filters和Tags去渲染输出 b.输出被返回到View c.HTTPResponse被发送到Response Middlewares d.任何Response Middlewares都可以丰富response或者返回一个完全不同的response e.Response返回到浏览器，呈现给用户 4. 返回Response]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[django添加login required装饰器]]></title>
+    <url>%2F2019%2F03%2F26%2Fdjango%E6%B7%BB%E5%8A%A0login-required%E8%A3%85%E9%A5%B0%E5%99%A8%2F</url>
+    <content type="text"><![CDATA[django添加login required装饰器1234567891011121314from django.contrib.auth.decorators import login_requiredfrom django.utils.decorators import method_decoratorclass LoginRequiredMixin(object): @method_decorator(login_required(login_url='/login/')) def dispatch(self,request,*args,**kwargs): return super(LoginRequiredMixin,self).dispatch(request,*args,**kwargs)# 用户个人中心信息页面class UserInfoView(LoginRequiredMixin, View): def get(self, request): return render(request, "usercenter-info.html", &#123; &#125;)]]></content>
+      <categories>
+        <category>Django</category>
+      </categories>
+      <tags>
+        <tag>Django</tag>
       </tags>
   </entry>
   <entry>
@@ -69,39 +190,6 @@
       </categories>
       <tags>
         <tag>Django</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[django添加login required装饰器]]></title>
-    <url>%2F2019%2F03%2F26%2Fdjango%E6%B7%BB%E5%8A%A0login-required%E8%A3%85%E9%A5%B0%E5%99%A8%2F</url>
-    <content type="text"><![CDATA[django添加login required装饰器1234567891011121314from django.contrib.auth.decorators import login_requiredfrom django.utils.decorators import method_decoratorclass LoginRequiredMixin(object): @method_decorator(login_required(login_url='/login/')) def dispatch(self,request,*args,**kwargs): return super(LoginRequiredMixin,self).dispatch(request,*args,**kwargs)# 用户个人中心信息页面class UserInfoView(LoginRequiredMixin, View): def get(self, request): return render(request, "usercenter-info.html", &#123; &#125;)]]></content>
-      <categories>
-        <category>Django</category>
-      </categories>
-      <tags>
-        <tag>Django</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[django信号量入门]]></title>
-    <url>%2F2019%2F03%2F26%2Fdjango%E4%BF%A1%E5%8F%B7%E9%87%8F%E5%85%A5%E9%97%A8%2F</url>
-    <content type="text"><![CDATA[django信号量注册成功用户后自动创建token1234567891011121314151617181920212223242526272829303132# Signals.pyfrom django.db.models.signals import post_savefrom django.db.models.signals import post_delete # 也可以自动删除from django.dispatch import receiverfrom rest_framework.authtoken.models import Tokenfrom django.contrib.auth import get_user_modelUser = get_user_model()@receiver(post_save, sender=User)def create_auth_token(sender, instance=None, created=False, **kwargs): if created: Token.objects.create(user=instance)# djangorestframework从前端拿到用户名和密码后存储加密后的密码@receiver(post_save, sender=User)def create_user(sender, instance=None, created=False, **kwargs): if created: password = instance.password instance.set_password(password) instance.save()# app.pyfrom django.apps import AppConfigclass UsersConfig(AppConfig): name = 'users' verbose_name = "用户" def ready(self): import users.Signals]]></content>
-      <categories>
-        <category>Django</category>
-      </categories>
-      <tags>
-        <tag>Django</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Python编码规范]]></title>
-    <url>%2F2019%2F03%2F26%2FPython%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83%2F</url>
-    <content type="text"><![CDATA[Python编码规范注：此为团队使用的一些规则，非通用规范，通用参考PEP8(2. https://www.python.org/dev/peps/pep-0008/#source-file-encoding) 排版 程序块使用缩进风格编写，缩进数为四个空格，不要使用Tab import语句： 1.每一个模块分行书写 2.三组库的顺序：官方库或模块+pypi上的第三库或模块+本地项目的库或模块,每组库之间加上空格 3.导入库尽量采用绝对路径引用，避免使用from xxx import * 4.django项目同一App内使用显式相对路径导入，django库放在第三方库前面 5.django view视图采用class_based_view风格写，不用函数 （https://docs.djangoproject.com/en/dev/internals/contributing/writing-code/coding-style/） 类与类，类与函数，方法与方法之间加上一行空行， 两个以上的关键字、变量、常量进行对等或运算操作时，操作符前后加上空格(函数默认参数,”*”,”**”除外) 注释 模块注释信息写在最前面 类和函数的注释信息写在定义语句的下一行，前后使用三引号： 123456789class A: """ xxx """def func(): """ xxx """ 可以在语句添加一些必要的注释，不要在语句同一行后面添加注释 1234def func(): # 这是占位符 pass pass # 这是占位符,不允许使用 命名 模块、包、函数、方法、函数参数、变量使用意思完整的全小写英文描述(单词间可加上下划线)，例如webserver或者web_server 类名称首字母大写，采用驼峰命名法CapWords风格，例如MyClass 编码 对象与None作比较时，使用is/is not,不要用== 异常处理采用try…except…except…[else…][finally…)结构（else可省略）异常捕获要明确处理的是哪种异常 获取dict某个键的值采用dict.get(key),不使用dict[key] 内部元素确定的序列采用tuple存储 列表内的字符串连接采用join方法，不采用切片方式 对象类型检查使用isinstance方式，不要type方式 序列的复杂处理可以采用推导式，逻辑太复杂的写函数 慎用lambda和高阶函数(reduce,map,sort,filter)，逻辑太复杂的写函数 递归处理不要超过三层 功能测试性质的代码放在”if name == ‘main‘:” logging日志记录模块单文件放置，其他模块引入(from mylogger import logger) 123456789101112131415# mylogger.pyimport logginglogger = logging.getLogger()# 先给logger设置一个基础Level，不设置默认为WARNING，重要！logger.setLevel(logging.DEBUG)# 创建一个handler，用于写入日志文件scan_log = logging.FileHandler("scan.log")scan_log.setLevel(logging.DEBUG)# 定义handler的输出格式formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')scan_log.setFormatter(formatter)# 给logger添加handlerlogger.addHandler(scan_log) 多线程和多进程使用Queue来协调管理任务和任务间的通信 函数默认参数不要使用list等可变对象(空列表用None代替) 123456789def func(bar=None): if bar is None: bar = [] bar.append("aaa") return bar# 错误方式def func(bar=[]): bar.append("aaa") return bar 无关代码但是与模块逻辑有关的需要删除，安全性高的代码打包前需要Cython模块编译为pyd文件，密钥等关键数据建议使用pycryptodome模块加密http://www.lizenghai.com/archives/898.html 重复性的代码要封装成可复用的函数和方法]]></content>
-      <categories>
-        <category>Python</category>
-      </categories>
-      <tags>
-        <tag>Python</tag>
       </tags>
   </entry>
   <entry>
