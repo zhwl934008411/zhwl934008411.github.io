@@ -96,25 +96,25 @@
 
 
 
-  <meta name="description" content="1 使用property创建可管理的对象属性property可以让实例在形式上是属性访问,但实际上调用方法12345678910111213141516171819202122class Circle2(object):    def __init__(self, radius):        self.radius = radius    def getRadius(self):">
-<meta name="keywords" content="Python">
+  <meta name="description" content="django ORM应用笔记1.常用字段类型和参数 数值型,右边为MySQL对应类型： AutoField int(11) Django默认提供，自增主键(也就是id) BooleanField tinyint(1) 布尔型 IntegerField int(11) 整数类型 PositiveIntegerField int(11) 正整数类型  字符型，右边为MySQL对应类型： CharFie">
+<meta name="keywords" content="Django">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Python基础与深入(二)">
-<meta property="og:url" content="http://yoursite.com/2018/10/03/Python基础与深入-二/index.html">
+<meta property="og:title" content="django ORM应用笔记">
+<meta property="og:url" content="http://yoursite.com/2019/03/31/djangoORM/index.html">
 <meta property="og:site_name" content="Jeese&#39;s Blog">
-<meta property="og:description" content="1 使用property创建可管理的对象属性property可以让实例在形式上是属性访问,但实际上调用方法12345678910111213141516171819202122class Circle2(object):    def __init__(self, radius):        self.radius = radius    def getRadius(self):">
+<meta property="og:description" content="django ORM应用笔记1.常用字段类型和参数 数值型,右边为MySQL对应类型： AutoField int(11) Django默认提供，自增主键(也就是id) BooleanField tinyint(1) 布尔型 IntegerField int(11) 整数类型 PositiveIntegerField int(11) 正整数类型  字符型，右边为MySQL对应类型： CharFie">
 <meta property="og:locale" content="zh-hans">
-<meta property="og:updated_time" content="2019-03-26T17:42:15.612Z">
+<meta property="og:updated_time" content="2019-04-03T15:39:49.190Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Python基础与深入(二)">
-<meta name="twitter:description" content="1 使用property创建可管理的对象属性property可以让实例在形式上是属性访问,但实际上调用方法12345678910111213141516171819202122class Circle2(object):    def __init__(self, radius):        self.radius = radius    def getRadius(self):">
+<meta name="twitter:title" content="django ORM应用笔记">
+<meta name="twitter:description" content="django ORM应用笔记1.常用字段类型和参数 数值型,右边为MySQL对应类型： AutoField int(11) Django默认提供，自增主键(也就是id) BooleanField tinyint(1) 布尔型 IntegerField int(11) 整数类型 PositiveIntegerField int(11) 正整数类型  字符型，右边为MySQL对应类型： CharFie">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/10/03/Python基础与深入-二/">
+  <link rel="canonical" href="http://yoursite.com/2019/03/31/djangoORM/">
 
 
 
@@ -124,7 +124,7 @@
   };
 </script>
 
-  <title>Python基础与深入(二) | Jeese's Blog</title>
+  <title>django ORM应用笔记 | Jeese's Blog</title>
   
 
 
@@ -357,7 +357,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/03/Python基础与深入-二/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/31/djangoORM/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jeese zhao">
@@ -374,7 +374,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Python基础与深入(二)
+          <h1 class="post-title" itemprop="name headline">django ORM应用笔记
 
               
             
@@ -400,7 +400,7 @@
                 
               
 
-              <time title="创建时间：2018-10-03 00:00:00" itemprop="dateCreated datePublished" datetime="2018-10-03T00:00:00+08:00">2018-10-03</time>
+              <time title="创建时间：2019-03-31 00:00:00" itemprop="dateCreated datePublished" datetime="2019-03-31T00:00:00+08:00">2019-03-31</time>
             
 
             
@@ -417,7 +417,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-03-27 01:42:15" itemprop="dateModified" datetime="2019-03-27T01:42:15+08:00">2019-03-27</time>
+                <time title="修改时间：2019-04-03 23:39:49" itemprop="dateModified" datetime="2019-04-03T23:39:49+08:00">2019-04-03</time>
               
             
           </span>
@@ -434,7 +434,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a></span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Django/" itemprop="url" rel="index"><span itemprop="name">Django</span></a></span>
 
                 
                 
@@ -475,36 +475,78 @@
       
 
       
-        <h3 id="1-使用property创建可管理的对象属性"><a href="#1-使用property创建可管理的对象属性" class="headerlink" title="1 使用property创建可管理的对象属性"></a>1 使用property创建可管理的对象属性</h3><p>property可以让实例在形式上是属性访问,但实际上调用方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">class Circle2(object):</span><br><span class="line">    def __init__(self, radius):</span><br><span class="line">        self.radius = radius</span><br><span class="line"></span><br><span class="line">    def getRadius(self):</span><br><span class="line">        # return self.radius</span><br><span class="line">        return round(self.radius, 2)  # 表示四舍五入后保留小数点后两位</span><br><span class="line"></span><br><span class="line">    def setRadius(self, value):</span><br><span class="line">        if not isinstance(value, (int, long, float)):</span><br><span class="line">            raise valueError(&apos;wrong type .&apos;)</span><br><span class="line">        self.radius = float(value)</span><br><span class="line"></span><br><span class="line">    def getArea(self):</span><br><span class="line">        return self.radius * 2 * pi</span><br><span class="line"></span><br><span class="line">    R = property(getRadius, setRadius)</span><br><span class="line"></span><br><span class="line">r = Circle2(3.2)</span><br><span class="line">print(r.R)  # 自动调用getRadius</span><br><span class="line">r.R = 5.4  # 自动调用setRadius</span><br><span class="line">print(r.R)  # 自动调用getRadius</span><br></pre></td></tr></table></figure></p>
-<h3 id="2-类属性和实例属性"><a href="#2-类属性和实例属性" class="headerlink" title="2.类属性和实例属性"></a>2.类属性和实例属性</h3><p><strong>类属性：</strong></p>
-<blockquote>
-<p>是可在类的所有实例之间共享的值（也就是说，它们不是单独分配给每个实例的）。例如下例中，num_of_instance 就是类属性，用于跟踪存在着多少个Test 的实例。</p>
-</blockquote>
-<p><strong>实例属性：</strong></p>
-<blockquote>
-<p>实例化之后，每个实例单独拥有的变量。</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span><span class="params">(object)</span>:</span></span><br><span class="line">    num_of_instance = <span class="number">0</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name)</span>:</span></span><br><span class="line">        self.name = name</span><br><span class="line">        Test.num_of_instance += <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="keyword">print</span> Test.num_of_instance   <span class="comment"># 0</span></span><br><span class="line">    t1 = Test(<span class="string">'jack'</span>)</span><br><span class="line">    <span class="keyword">print</span> Test.num_of_instance   <span class="comment"># 1</span></span><br><span class="line">    t2 = Test(<span class="string">'lucy'</span>)</span><br><span class="line">    <span class="keyword">print</span> t1.name , t1.num_of_instance  <span class="comment"># jack 2</span></span><br><span class="line">    <span class="keyword">print</span> t2.name , t2.num_of_instance  <span class="comment"># lucy 2</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>补充的例子</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span>:</span></span><br><span class="line">    name=<span class="string">"aaa"</span></span><br><span class="line"></span><br><span class="line">p1=Person()</span><br><span class="line">p2=Person()</span><br><span class="line">p1.name=<span class="string">"bbb"</span></span><br><span class="line"><span class="keyword">print</span> p1.name  <span class="comment"># bbb</span></span><br><span class="line"><span class="keyword">print</span> p2.name  <span class="comment"># aaa</span></span><br><span class="line"><span class="keyword">print</span> Person.name  <span class="comment"># aaa</span></span><br></pre></td></tr></table></figure>
-<p>这里<code>p1.name=&quot;bbb&quot;</code>是实例调用了类属性,这其实和上面第一个问题一样,就是函数传参的问题,<code>p1.name</code>一开始是指向的类属性<code>name=&quot;aaa&quot;</code>,但是在实例的作用域里把类属性的引用改变了,就变成了一个实例属性,self.name不再引用Person的类属性name了.</p>
-<p>可以看看下面的例子:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span>:</span></span><br><span class="line">    name=[]</span><br><span class="line"></span><br><span class="line">p1=Person()</span><br><span class="line">p2=Person()</span><br><span class="line">p1.name.append(<span class="number">1</span>)</span><br><span class="line"><span class="keyword">print</span> p1.name  <span class="comment"># [1]</span></span><br><span class="line"><span class="keyword">print</span> p2.name  <span class="comment"># [1]</span></span><br><span class="line"><span class="keyword">print</span> Person.name  <span class="comment"># [1]</span></span><br></pre></td></tr></table></figure>
-<p>参考:<a href="http://stackoverflow.com/questions/6470428/catch-multiple-exceptions-in-one-line-except-block" target="_blank" rel="noopener">http://stackoverflow.com/questions/6470428/catch-multiple-exceptions-in-one-line-except-block</a></p>
-<h3 id="3-Python自省"><a href="#3-Python自省" class="headerlink" title="3.Python自省"></a>3.Python自省</h3><p>自省就是面向对象的语言所写的程序在运行时,所能知道对象的类型.简单一句就是运行时能够获得对象的类型.比如type(),dir(),getattr(),hasattr(),isinstance().</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line">b = &#123;<span class="string">'a'</span>:<span class="number">1</span>,<span class="string">'b'</span>:<span class="number">2</span>,<span class="string">'c'</span>:<span class="number">3</span>&#125;</span><br><span class="line">c = <span class="keyword">True</span></span><br><span class="line"><span class="keyword">print</span> type(a),type(b),type(c) <span class="comment"># &lt;type 'list'&gt; &lt;type 'dict'&gt; &lt;type 'bool'&gt;</span></span><br><span class="line"><span class="keyword">print</span> isinstance(a,list)  <span class="comment"># True</span></span><br></pre></td></tr></table></figure>
-<h3 id="4-列表解析、集合解析"><a href="#4-列表解析、集合解析" class="headerlink" title="4.列表解析、集合解析"></a>4.列表解析、集合解析</h3><p>代码示例如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">list1=[x <span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">100</span>) <span class="keyword">if</span> x%<span class="number">2</span>==<span class="number">0</span>] <span class="comment">#或 [x for x in range(0,100,2)]</span></span><br><span class="line"><span class="comment">#集合的列表生成式</span></span><br><span class="line">s=&#123;<span class="number">1</span>,<span class="number">34</span>,<span class="number">5</span>,<span class="number">-7</span>,<span class="number">6</span>,<span class="number">87</span>,<span class="number">-8</span>,<span class="number">-9</span>,<span class="number">11</span>&#125;</span><br><span class="line">print(&#123;x <span class="keyword">for</span> x <span class="keyword">in</span> s <span class="keyword">if</span> x%<span class="number">3</span>==<span class="number">0</span>&#125;)</span><br></pre></td></tr></table></figure>
-<h3 id="5-Python中单下划线和双下划线"><a href="#5-Python中单下划线和双下划线" class="headerlink" title="5.Python中单下划线和双下划线"></a>5.Python中单下划线和双下划线</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span><span class="params">()</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line"><span class="meta">... </span>            self.__superprivate = <span class="string">"Hello"</span></span><br><span class="line"><span class="meta">... </span>            self._semiprivate = <span class="string">", world!"</span></span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>mc = MyClass()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">print</span> mc.__superprivate</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">AttributeError: myClass instance has no attribute <span class="string">'__superprivate'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">print</span> mc._semiprivate</span><br><span class="line">, world!</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">print</span> mc.__dict__</span><br><span class="line">&#123;<span class="string">'_MyClass__superprivate'</span>: <span class="string">'Hello'</span>, <span class="string">'_semiprivate'</span>: <span class="string">', world!'</span>&#125;</span><br></pre></td></tr></table></figure>
-<p><code>__foo__</code>:一种约定,Python内部的名字,用来区别其他用户自定义的命名,以防冲突，就是例如<code>__init__()</code>,<code>__del__()</code>,<code>__call__()</code>这些特殊方法</p>
-<p><code>_foo</code>:一种约定,用来指定变量私有.程序员用来指定私有变量的一种方式.不能用from module import * 导入，其他方面和公有一样访问；</p>
-<p><code>__foo</code>:这个有真正的意义:解析器用<code>_classname__foo</code>来代替这个名字,以区别和其他类相同的命名,它无法直接像公有成员一样随便访问,通过对象名._类名__xxx这样的方式可以访问.</p>
-<p>详情见:<a href="http://stackoverflow.com/questions/1301346/the-meaning-of-a-single-and-a-double-underscore-before-an-object-name-in-python" target="_blank" rel="noopener">http://stackoverflow.com/questions/1301346/the-meaning-of-a-single-and-a-double-underscore-before-an-object-name-in-python</a></p>
-<p>或者: <a href="http://www.zhihu.com/question/19754941" target="_blank" rel="noopener">http://www.zhihu.com/question/19754941</a></p>
-<h3 id="6-字典、列表、元组、集合"><a href="#6-字典、列表、元组、集合" class="headerlink" title="6.字典、列表、元组、集合"></a>6.字典、列表、元组、集合</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 补充：集合的交集并集等操作</span></span><br><span class="line">A=set([randint(<span class="number">1</span>,<span class="number">20</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> range(<span class="number">10</span>)])</span><br><span class="line">B=set([randint(<span class="number">1</span>,<span class="number">20</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> range(<span class="number">10</span>)])</span><br><span class="line">print(A&amp;B,A|B,A-B,A^B) <span class="comment">#交，并，差，补</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> namedtuple</span><br><span class="line">Student = namedtuple(<span class="string">'Student'</span>, [<span class="string">'name'</span>, <span class="string">'age'</span>, <span class="string">'sex'</span>, <span class="string">'email'</span>])</span><br><span class="line">Jim = Student(<span class="string">'Jim'</span>, <span class="number">16</span>, <span class="string">'male'</span>, <span class="string">'jim8721@gamil.com'</span>)</span><br><span class="line">print(Jim.name)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用zip将字典数据转化为元组</span></span><br><span class="line">score = &#123;</span><br><span class="line">    <span class="string">'LiLei'</span>: <span class="number">79</span>,</span><br><span class="line">    <span class="string">'Jim'</span>: <span class="number">88</span>,</span><br><span class="line">    <span class="string">'Lucy'</span>: <span class="number">92</span></span><br><span class="line">&#125;</span><br><span class="line">score4 = tuple(zip(score.values(),score.keys()))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 字典排序</span></span><br><span class="line">print(sorted(score.items(),key=<span class="keyword">lambda</span> x:x[<span class="number">1</span>])) <span class="comment">#表示对生成的列表的元组索引第二位进行排序</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 字典补充 k,v交换</span></span><br><span class="line">score2=&#123;v:k <span class="keyword">for</span> k,v <span class="keyword">in</span> score.items()&#125;</span><br><span class="line">score3=dict(zip(score2.values(),score2.keys()))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 统计元素出现的频度</span></span><br><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> Counter, OrderedDict</span><br><span class="line"><span class="keyword">from</span> random <span class="keyword">import</span> randint</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line">data = [randint(<span class="number">0</span>, <span class="number">20</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> range(<span class="number">30</span>)] <span class="comment">#产生30个0到20的随机整数</span></span><br><span class="line">print(Counter(data))</span><br><span class="line">print(Counter(data).most_common(<span class="number">3</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建有序的字典</span></span><br><span class="line"><span class="keyword">from</span> functools <span class="keyword">import</span> OrderedDict</span><br><span class="line">od = OrderedDict([(<span class="string">'a'</span>, <span class="number">1</span>), (<span class="string">'b'</span>, <span class="number">2</span>), (<span class="string">'c'</span>, <span class="number">3</span>)])</span><br></pre></td></tr></table></figure>
-<h4 id="元组和列表的同异"><a href="#元组和列表的同异" class="headerlink" title="元组和列表的同异"></a>元组和列表的同异</h4><p>同：列表与元组都是容器，是一系列的对象。二者都可以包含任意类型的元素甚至可以是一个序列，还可以包含元素的顺序（不像集合和字典）。<br>元组属于不可变对象，列表属于可变对象，列表的很多方法不适用于元组；元组可哈希而列表不可哈希；元组占用空间更小，代码的语义更好理解再函数式编程较常用。</p>
+        <h3 id="django-ORM应用笔记"><a href="#django-ORM应用笔记" class="headerlink" title="django ORM应用笔记"></a>django ORM应用笔记</h3><h4 id="1-常用字段类型和参数"><a href="#1-常用字段类型和参数" class="headerlink" title="1.常用字段类型和参数"></a>1.常用字段类型和参数</h4><ul>
+<li><p>数值型,右边为MySQL对应类型：</p>
+<pre><code>AutoField int(11) Django默认提供，自增主键(也就是id)
+BooleanField tinyint(1) 布尔型
+IntegerField int(11) 整数类型
+PositiveIntegerField int(11) 正整数类型
+</code></pre></li>
+<li><p>字符型，右边为MySQL对应类型：</p>
+<pre><code>CharField varchar 基础的字符串类型
+TextField longtext 文本类型
+第三方富文本:django-Ueditor(https://github.com/liyaopinner/DjangoUeditor3_imooc)以及django-ckeditor(https://github.com/django-ckeditor/django-ckeditor)
+
+URLField 增加对URL的校验
+EmailField 增加对Email格式的校验
+FileField 多了对文件的处理，后台管理系统可以看到上传文件按钮
+ImageFiled 多了对图片的处理，后台管理系统可以看到上传图片按钮
+
+UUIDField 用来生成唯一的uuid
+</code></pre></li>
+<li><p>日期类型</p>
+<pre><code>DateField
+DateTimeField
+</code></pre></li>
+<li><p>关系类型</p>
+<pre><code>ForeignKey 一对多
+OneToOneField 一对一类似是ForeignKey的特殊用法，在外键字段上加了unique约束
+ManyToManyField 多对多类型，会创建一个中间表来进行多对多的关联
+</code></pre></li>
+<li><p>常用字段和参数举例说明：</p>
+<pre><code><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.db <span class="keyword">import</span> models</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GoodsCategory</span><span class="params">(models.Model)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    商品类别</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    CATEGORY_TYPE = (</span><br><span class="line">        (<span class="number">1</span>, <span class="string">"一级类目"</span>),</span><br><span class="line">        (<span class="number">2</span>, <span class="string">"二级类目"</span>),</span><br><span class="line">        (<span class="number">3</span>, <span class="string">"三级类目"</span>),</span><br><span class="line">    )</span><br><span class="line">    name = models.CharField(max_length=<span class="number">100</span>, null=<span class="keyword">True</span>, blank=<span class="keyword">True</span>, verbose_name=<span class="string">"类别名"</span>, help_text=<span class="string">"类别名"</span>)</span><br><span class="line">    desc = models.TextField(null=<span class="keyword">True</span>, blank=<span class="keyword">True</span>, verbose_name=<span class="string">"类别描述"</span>, help_text=<span class="string">"类别描述"</span>)</span><br><span class="line">    category_type = models.IntegerField(choices=CATEGORY_TYPE, verbose_name=<span class="string">"类目级别"</span>, help_text=<span class="string">"类目级别"</span>)</span><br><span class="line">    parent_category = models.ForeignKey(<span class="string">'self'</span>, null=<span class="keyword">True</span>, blank=<span class="keyword">True</span>,</span><br><span class="line">                                        verbose_name=<span class="string">'父类目级别'</span>, on_delete=models.CASCADE, help_text=<span class="string">'父目录'</span>,</span><br><span class="line">                                        related_name=<span class="string">'sub_cat'</span>)  <span class="comment"># related_name用于关联查询</span></span><br><span class="line">    is_tab = models.BooleanField(default=<span class="keyword">False</span>, verbose_name=<span class="string">"是否导航"</span>, help_text=<span class="string">"是否导航"</span>)</span><br><span class="line">    add_time = models.DateTimeField(<span class="string">'创建时间'</span>, auto_now=<span class="keyword">True</span>， verbose_name=<span class="string">'最后修改时间'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span></span><br><span class="line">       verbose_name = <span class="string">"商品类别"</span></span><br><span class="line">       verbose_name_plural = verbose_name</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__str__</span><span class="params">(self)</span>:</span></span><br><span class="line">       <span class="keyword">return</span> self.name</span><br><span class="line"></span><br><span class="line"> <span class="class"><span class="keyword">class</span> <span class="title">Goods</span><span class="params">(models.Model)</span>:</span></span><br><span class="line">     <span class="string">"""</span></span><br><span class="line"><span class="string">     商品</span></span><br><span class="line"><span class="string">     """</span></span><br><span class="line">     category = models.ForeignKey(GoodsCategory, on_delete=models.CASCADE, verbose_name=<span class="string">"商品类目"</span>, help_text=<span class="string">"商品类目"</span>)</span><br><span class="line">     goods_sn = models.CharField(max_length=<span class="number">50</span>, default=<span class="string">""</span>, verbose_name=<span class="string">"商品唯一货号"</span>, help_text=<span class="string">"商品唯一货号"</span>)</span><br><span class="line">     goods_front_image = models.ImageField(upload_to=<span class="string">"goods/images/"</span>, null=<span class="keyword">True</span>, blank=<span class="keyword">True</span>, verbose_name=<span class="string">"封面图"</span>,help_text=<span class="string">"封面图"</span>)</span><br><span class="line">     file = models.FileField(upload_to=<span class="string">"message/images/"</span>, verbose_name=<span class="string">"上传的文件"</span>, help_text=<span class="string">"上传的文件"</span>)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">max_length 最大长度</span></span><br><span class="line"><span class="string">default 默认值</span></span><br><span class="line"><span class="string">verbose_name 字段在后台显示的名称</span></span><br><span class="line"><span class="string">help_text 一般用于生成API文档(djangoRestframework)</span></span><br><span class="line"><span class="string">null=True, blank=True 常常搭配使用，允许字段的值为空</span></span><br><span class="line"><span class="string">choices 字段在后台管理系统可选的值</span></span><br><span class="line"><span class="string">db_index=True 对于需要经常查询的字段需要配置</span></span><br><span class="line"><span class="string">unique=True 与db_index相冲突，设置了此项不要在设置db_index</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">auto_now=True 用于DateTimeField或DateField，记录更新时间</span></span><br><span class="line"><span class="string">auto_now_add=True 用于DateTimeField或DateField，记录初次添加的时间</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">on_delete=models.CASCADE 外键级联删除，当删除了外键对象时，外键对象关联的所有记录也会跟着删除，</span></span><br><span class="line"><span class="string">（一般设置为on_delete=models.DO_NOTHING）</span></span><br><span class="line"><span class="string">models.ForeignKey('self',related_name='sub_cat') 自关联字段，类似于省市区，有三级分类，</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">upload_to="message/images/" 用于FileField或ImageField，约束上传文件存储的位置（都存在根目录中的media目录）</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+</code></pre></li>
+</ul>
+<h4 id="元数据"><a href="#元数据" class="headerlink" title="元数据"></a>元数据</h4><pre><code>常用到的就四个
+class Meta:
+    verbose_name = &quot;学生信息表&quot; # 后台管理系统显示的表名
+    db_table = &quot;student_info&quot; # 自定义数据库存储的表名，默认是app名+model类名
+    verbose_name_plural = verbose_name # 后台管理系统显示的表名
+    unique_together(&apos;address&apos;,&apos;info&apos;) # address和info联合约束
+</code></pre><h4 id="2-django导入数据"><a href="#2-django导入数据" class="headerlink" title="2.django导入数据"></a>2.django导入数据</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># models.py</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Teacher</span><span class="params">(models.Model)</span>:</span></span><br><span class="line">    <span class="string">"""讲师信息表"""</span></span><br><span class="line">    nickname = models.CharField(max_length=<span class="number">30</span>, primary_key=<span class="keyword">True</span>, db_index=<span class="keyword">True</span>, verbose_name=<span class="string">"昵称"</span>)</span><br><span class="line">    introduction = models.TextField(default=<span class="string">"这位同学很懒，木有签名的说~"</span>, verbose_name=<span class="string">"简介"</span>)</span><br><span class="line">    fans = models.PositiveIntegerField(default=<span class="string">"0"</span>, verbose_name=<span class="string">"粉丝数"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span></span><br><span class="line">        verbose_name = <span class="string">"讲师信息表"</span></span><br><span class="line">        verbose_name_plural = verbose_name</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__str__</span><span class="params">(self)</span>:</span>  <span class="comment"># Python2:__unicode__</span></span><br><span class="line">        <span class="keyword">return</span> self.nickname</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在项目根目录新建orm_data.py</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line">project_path = os.path.dirname(os.path.abspath(__file__))</span><br><span class="line">sys.path.append(project_path)  <span class="comment"># 将项目路径添加到系统搜寻路径当中</span></span><br><span class="line">os.environ[<span class="string">'DJANGO_SETTINGS_MODULE'</span>] = <span class="string">'imooc.settings'</span>  <span class="comment"># 设置项目的配置文件</span></span><br><span class="line">django.setup()</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> courses.models <span class="keyword">import</span> Teacher</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">import_data</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="string">"""使用Django ORM导入数据"""</span></span><br><span class="line">    <span class="comment"># 讲师数据 create()</span></span><br><span class="line">    Teacher.objects.create(nickname=<span class="string">"Jack"</span>, introduction=<span class="string">"Python工程师"</span>, fans=<span class="number">666</span>)</span><br><span class="line">    Teacher.objects.create(nickname=<span class="string">"Allen"</span>, introduction=<span class="string">"Java工程师"</span>, fans=<span class="number">123</span>)</span><br><span class="line">    Teacher.objects.create(nickname=<span class="string">"Henry"</span>, introduction=<span class="string">"Golang工程师"</span>, fans=<span class="number">818</span>)</span><br><span class="line">    <span class="comment"># bulk_create 批量导入</span></span><br><span class="line">    <span class="comment"># update_or_create 存在就更新，否则就新增</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">True</span></span><br></pre></td></tr></table></figure>
+<h4 id="3-queryset查询接口"><a href="#3-queryset查询接口" class="headerlink" title="3.queryset查询接口"></a>3.queryset查询接口</h4><pre><code># 直接返回结果，不返回Queryset
+函数有:get,create,update,delete,get_or_create,count,first,bulk_create
+need_posts = Post..objects.get(id=1)
+need_posts = posts.filter(title__contains).count() #查询结果计数
+Post.objects.create(title=&quot;xx&quot;)# 创建并保存一条数据
+
+# 结果检索，过滤，切片，排序，返回Queryset
+posts= Post.objects.all()
+need_posts = posts.filter(id=1) # 过滤出满足条件的对象
+noneed_posts = posts.exclude(id=1) # 排除满足条件的对象
+posts = posts.order_by(&quot;-add_time&quot;) # 根据更新时间倒序排序
+posts = posts.reverse() # 查询结果反向排序
+posts =posts[:2] # 取到前两条数据
+
+# 链式查询,相当于启用join查询
+posts = Post.objects.all().select_related(&apos;user&apos;)
+
+# Q查询
+Q查询，or，and，
+posts = Post.objects.filter(Q(id=1)|Q(id=2))
+posts = Post.objects.filter(Q(id=1)&amp;Q(id=2))
+
+# 附加说明.查询关键字
+contains:包含，用于模糊查询
+icontains:忽略大小写，用于模糊查询
+exact:精确匹配
+in:指定某个集合 posts = Post.objects.filter(id__in=[1,2])
+range:指定某个范围，多用于时间范围，posts = Post.objects.filter(add_time__range=(&apos;2019-03-01&apos;,&apos;2019-03-29&apos;))
+gt,gte,lt,lte:值满足给定条件：大于、大于或等于，小于，小于或等于
+startswith,endswith,istartswith,iendswith,
+</code></pre><h4 id="4-queryset查询优化"><a href="#4-queryset查询优化" class="headerlink" title="4.queryset查询优化"></a>4.queryset查询优化</h4><p>实际问题实际考虑</p>
+<p>一般是先做filter查询，根据返回的queryset再做进一步的处理</p>
+<p>github：<a href="https://github.com/zhwl934008411/imooc" target="_blank" rel="noopener">https://github.com/zhwl934008411/imooc</a></p>
 
       
     </div>
@@ -552,7 +594,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Python/" rel="tag"># Python</a>
+            <a href="/tags/Django/" rel="tag"># Django</a>
           
         </div>
       
@@ -565,8 +607,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/10/01/Python基础与深入-一/" rel="next" title="Python基础与深入(一)">
-                <i class="fa fa-chevron-left"></i> Python基础与深入(一)
+              <a href="/2019/03/28/使用socket和线程池爬取数据/" rel="next" title="使用socket和线程池爬取数据">
+                <i class="fa fa-chevron-left"></i> 使用socket和线程池爬取数据
               </a>
             
           </div>
@@ -575,8 +617,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/10/04/Python基础与深入-三/" rel="prev" title="Python基础与深入(三)">
-                Python基础与深入(三) <i class="fa fa-chevron-right"></i>
+              <a href="/2019/03/31/django-nginx-gunicorn部署/" rel="prev" title="centos7下通过nginx+gunicorn部署django应用笔记">
+                centos7下通过nginx+gunicorn部署django应用笔记 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -740,7 +782,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-使用property创建可管理的对象属性"><span class="nav-number">1.</span> <span class="nav-text">1 使用property创建可管理的对象属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-类属性和实例属性"><span class="nav-number">2.</span> <span class="nav-text">2.类属性和实例属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Python自省"><span class="nav-number">3.</span> <span class="nav-text">3.Python自省</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-列表解析、集合解析"><span class="nav-number">4.</span> <span class="nav-text">4.列表解析、集合解析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-Python中单下划线和双下划线"><span class="nav-number">5.</span> <span class="nav-text">5.Python中单下划线和双下划线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-字典、列表、元组、集合"><span class="nav-number">6.</span> <span class="nav-text">6.字典、列表、元组、集合</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#元组和列表的同异"><span class="nav-number">6.1.</span> <span class="nav-text">元组和列表的同异</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#django-ORM应用笔记"><span class="nav-number">1.</span> <span class="nav-text">django ORM应用笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-常用字段类型和参数"><span class="nav-number">1.1.</span> <span class="nav-text">1.常用字段类型和参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#元数据"><span class="nav-number">1.2.</span> <span class="nav-text">元数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-django导入数据"><span class="nav-number">1.3.</span> <span class="nav-text">2.django导入数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-queryset查询接口"><span class="nav-number">1.4.</span> <span class="nav-text">3.queryset查询接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-queryset查询优化"><span class="nav-number">1.5.</span> <span class="nav-text">4.queryset查询优化</span></a></li></ol></li></ol></div>
             
 
           </div>

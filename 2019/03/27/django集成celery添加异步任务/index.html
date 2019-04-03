@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="Jeese&#39;s Blog">
 <meta property="og:description" content="django集成celery添加异步任务django集成celery一.安装pip install celery[redis](windows不适用,4.1.0版本定时任务有bug) pip install redis==2.10.6 msgpack celery==3.1.20(windows采用方案) pip install django-celery-3.2.2 二.应用1.添加celery">
 <meta property="og:locale" content="zh-hans">
-<meta property="og:updated_time" content="2019-03-28T13:00:38.000Z">
+<meta property="og:updated_time" content="2019-04-03T15:29:59.914Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="django集成celery添加异步任务">
 <meta name="twitter:description" content="django集成celery添加异步任务django集成celery一.安装pip install celery[redis](windows不适用,4.1.0版本定时任务有bug) pip install redis==2.10.6 msgpack celery==3.1.20(windows采用方案) pip install django-celery-3.2.2 二.应用1.添加celery">
@@ -417,7 +417,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-03-28 21:00:38" itemprop="dateModified" datetime="2019-03-28T21:00:38+08:00">2019-03-28</time>
+                <time title="修改时间：2019-04-03 23:29:59" itemprop="dateModified" datetime="2019-04-03T23:29:59+08:00">2019-04-03</time>
               
             
           </span>
@@ -485,7 +485,7 @@ pip install django-celery-3.2.2
 2.启动django：python manage.py runserver
 3.访问URL:127.0.0.1:8000/run
 </code></pre><h5 id="2-再开启定时任务"><a href="#2-再开启定时任务" class="headerlink" title="2.再开启定时任务"></a>2.再开启定时任务</h5><pre><code>celery任务调度Beat：python manage.py celerybeat -l info --logfile /log/beat.log
-</code></pre><h4 id="四-任务监控-flower"><a href="#四-任务监控-flower" class="headerlink" title="四.任务监控 flower"></a>四.任务监控 flower</h4><p>安装：pip install flower<br>启动：celery flower –basic_auth=root:123456<br>访问：127.0.0.1:5555</p>
+</code></pre><h4 id="四-任务监控-flower"><a href="#四-任务监控-flower" class="headerlink" title="四.任务监控 flower"></a>四.任务监控 flower</h4><p>安装：pip install flower<br>启动：python manage.py celery flower –basic_auth=root:123456<br>访问：127.0.0.1:5555</p>
 <p><a href="https://github.com/zhwl934008411/celery-learning" target="_blank" rel="noopener">https://github.com/zhwl934008411/celery-learning</a></p>
 
       
@@ -547,8 +547,8 @@ pip install django-celery-3.2.2
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/03/26/django-http请求处理流程/" rel="next" title="django http请求处理流程">
-                <i class="fa fa-chevron-left"></i> django http请求处理流程
+              <a href="/2019/03/27/django性能分析/" rel="next" title="django性能分析工具">
+                <i class="fa fa-chevron-left"></i> django性能分析工具
               </a>
             
           </div>
@@ -557,8 +557,8 @@ pip install django-celery-3.2.2
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/03/27/django性能分析/" rel="prev" title="django性能分析">
-                django性能分析 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/03/28/多线程与队列的运用/" rel="prev" title="多线程与队列的运用">
+                多线程与队列的运用 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -629,7 +629,7 @@ pip install django-celery-3.2.2
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">30</span>
+                    <span class="site-state-item-count">32</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>

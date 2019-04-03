@@ -96,20 +96,25 @@
 
 
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Jeese&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/tags/asynico/index.html">
+  <meta name="description" content="centos7下通过nginx+gunicorn部署django应用笔记1.安装基础环境启动gunicorn新建虚拟环境imooc并切换到imooc pip install django==2.0 gunicorn django-admin startproject imooc cd imooc  命令行启动 gunicorn imooc.wsgi:application -w 2 -b 127.">
+<meta name="keywords" content="Django">
+<meta property="og:type" content="article">
+<meta property="og:title" content="centos7下通过nginx+gunicorn部署django应用笔记">
+<meta property="og:url" content="http://yoursite.com/2019/03/31/django-nginx-gunicorn部署/index.html">
 <meta property="og:site_name" content="Jeese&#39;s Blog">
+<meta property="og:description" content="centos7下通过nginx+gunicorn部署django应用笔记1.安装基础环境启动gunicorn新建虚拟环境imooc并切换到imooc pip install django==2.0 gunicorn django-admin startproject imooc cd imooc  命令行启动 gunicorn imooc.wsgi:application -w 2 -b 127.">
 <meta property="og:locale" content="zh-hans">
+<meta property="og:updated_time" content="2019-04-03T15:38:51.359Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Jeese&#39;s Blog">
+<meta name="twitter:title" content="centos7下通过nginx+gunicorn部署django应用笔记">
+<meta name="twitter:description" content="centos7下通过nginx+gunicorn部署django应用笔记1.安装基础环境启动gunicorn新建虚拟环境imooc并切换到imooc pip install django==2.0 gunicorn django-admin startproject imooc cd imooc  命令行启动 gunicorn imooc.wsgi:application -w 2 -b 127.">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/tags/asynico/">
+  <link rel="canonical" href="http://yoursite.com/2019/03/31/django-nginx-gunicorn部署/">
 
 
 
@@ -119,7 +124,7 @@
   };
 </script>
 
-  <title>标签: asynico | Jeese's Blog</title>
+  <title>centos7下通过nginx+gunicorn部署django应用笔记 | Jeese's Blog</title>
   
 
 
@@ -167,7 +172,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
     <a href="https://github.com/zhwl934008411" class="github-corner" aria-label="View source on GitHub">
     <svg width="80" height="80" viewbox="0 0 250 250" style="fill:#64CEAA; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true">
@@ -227,7 +232,7 @@
         
         
           
-          <li class="menu-item menu-item-tags menu-item-active">
+          <li class="menu-item menu-item-tags">
 
     
     
@@ -332,79 +337,300 @@
           
             
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
-
           
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>asynico<small>标签</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
+
+  
 
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/31/django-nginx-gunicorn部署/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeese zhao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jeese's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
-          <a class="post-title-link" href="/2019/03/28/使用socket和asynico库爬取数据/" itemprop="url">
-            
-              <span itemprop="name">使用socket和asynico库爬取数据</span>
-            
-          </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">centos7下通过nginx+gunicorn部署django应用笔记
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-03-28T00:00:00+08:00" content="2019-03-28">
-          03-28
-        </time>
-      </div>
+              
+            
+          </h1>
+        
 
-    </header>
-  </article>
+        <div class="post-meta">
+          <span class="post-time">
 
+            
+            
+            
 
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-03-31 00:00:00" itemprop="dateCreated datePublished" datetime="2019-03-31T00:00:00+08:00">2019-03-31</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-03 23:38:51" itemprop="dateModified" datetime="2019-04-03T23:38:51+08:00">2019-04-03</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Django/" itemprop="url" rel="index"><span itemprop="name">Django</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="centos7下通过nginx-gunicorn部署django应用笔记"><a href="#centos7下通过nginx-gunicorn部署django应用笔记" class="headerlink" title="centos7下通过nginx+gunicorn部署django应用笔记"></a>centos7下通过nginx+gunicorn部署django应用笔记</h3><h4 id="1-安装基础环境启动gunicorn"><a href="#1-安装基础环境启动gunicorn" class="headerlink" title="1.安装基础环境启动gunicorn"></a>1.安装基础环境启动gunicorn</h4><pre><code>新建虚拟环境imooc并切换到imooc
+pip install django==2.0 gunicorn
+django-admin startproject imooc
+cd imooc
+
+命令行启动
+gunicorn imooc.wsgi:application -w 2 -b 127.0.0.1:8000
+imooc.wsgi:application imooc是你django工程的名称，后面不用改
+-w --workers 意思是要启动的进程数量
+-b --bind 绑定的IP地址和端口
+-k --worker-class 启动的worker类型（gthread,sync,eventlet,gevent,tornado）,默认是同步阻塞方式启动
+访问：127.0.0.1:8000
+
+以配置文件启动：
+gunicorn imooc.wsgi:application -k gthread -c ~/projects/imooc/conf/gunicorn.conf.py
+
+# gunicorn.conf.py
+import multiprocessing
+bind = &quot;127.0.0.1:8888&quot;
+workers = 2
+errorlog = &apos; ~/projects/imooc/log/error.log&apos;
+accesslog = &apos; ~/projects/imooc/log/access.log&apos;
+#loglevel = &apos;info&apos;
+loglevel = &apos;error&apos;
+</code></pre><h4 id="2-收集静态文件"><a href="#2-收集静态文件" class="headerlink" title="2.收集静态文件"></a>2.收集静态文件</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># imooc settings.py</span></span><br><span class="line">ALLOWED_HOSTS = [<span class="string">'127.0.0.1'</span>, <span class="string">'localhost'</span>, <span class="string">'10.67.9.113'</span>,]</span><br><span class="line">STATIC_ROOT = os.path.join(BASE_DIR, <span class="string">'static'</span>)</span><br><span class="line">DEBUG = <span class="keyword">False</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># urls.py</span></span><br><span class="line"><span class="keyword">from</span> imooc.settings <span class="keyword">import</span> STATIC_ROOT</span><br><span class="line"><span class="keyword">from</span> django.views.static <span class="keyword">import</span> serve</span><br><span class="line"><span class="keyword">from</span> django.conf.urls <span class="keyword">import</span> url</span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    path(<span class="string">'admin/'</span>, admin.site.urls),</span><br><span class="line">    url(<span class="string">'^static/(?P&lt;path&gt;.*)/$'</span>, serve, &#123;<span class="string">"document_root"</span>: STATIC_ROOT&#125;),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>运行 python manage.py collectstatic</p>
+<p>运行gunicorn<br>gunicorn imooc.wsgi:application -k gthread -c ~/projects/imooc/conf/gunicorn.conf.py</p>
+<h4 id="3-安装并启动nginx"><a href="#3-安装并启动nginx" class="headerlink" title="3.安装并启动nginx"></a>3.安装并启动nginx</h4><pre><code>1.安装nginx和开放http服务与端口
+https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-centos-7
+systemctl start nginx 访问设备IP出现欢迎界面
+systemctl enable nginx 设置nginx自启动
+
+2.新建gunicorn.nginx.conf
+vim ~/projects/imooc/conf/gunicorn.nginx.conf
+
+# gunicorn.nginx.conf
+server {
+    # the port your site will be served on
+    listen      8080;
+    # the domain name it will serve for
+    server_name      设备IP地址; # 设备IP地址或者绑定的域名
+    charset     utf-8;
+
+    location / {
+        proxy_pass http://127.0.0.1:8000;#gunicorn绑定的地址
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+
+    location /static {
+        alias ~/projects/imooc/static; # your Django project&apos;s static files - amend as required
+    }
+}
+3.建立软连接
+touch /etc/nginx/conf.d/(不存在再创建)
+ln -s ~/projects/imooc/conf/gunicorn.nginx.conf /etc/nginx/conf.d/
+4.修改/etc/nginx/nginx.conf并启动nginx
+http{...}添加如下一行：
+include /etc/nginx/conf.d/*.conf;
+并修改用户为服务器当前登录用户
+sudo /usr/sbin/nginx -t
+systemctl restart nginx
+</code></pre>
       
     </div>
 
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Jeese zhao 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Django/" rel="tag"># Django</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/31/djangoORM/" rel="next" title="django ORM应用笔记">
+                <i class="fa fa-chevron-left"></i> django ORM应用笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+  </div>
 
 
           </div>
           
+
+  
+
+
 
         </div>
         
@@ -425,8 +651,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -523,6 +758,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#centos7下通过nginx-gunicorn部署django应用笔记"><span class="nav-number">1.</span> <span class="nav-text">centos7下通过nginx+gunicorn部署django应用笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-安装基础环境启动gunicorn"><span class="nav-number">1.1.</span> <span class="nav-text">1.安装基础环境启动gunicorn</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-收集静态文件"><span class="nav-number">1.2.</span> <span class="nav-text">2.收集静态文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-安装并启动nginx"><span class="nav-number">1.3.</span> <span class="nav-text">3.安装并启动nginx</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
@@ -684,6 +936,10 @@
 
 
   
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
 
   
 
@@ -693,6 +949,8 @@
 
 
   
+  
+
 
 
 
